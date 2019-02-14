@@ -15,6 +15,7 @@ library(tidyr)
 library(kableExtra)
 library(merf)
 
+# Set this to local metadata file
 metadataFile <- "/home/kevin/projects/viralTransmission/viral-transmission/viralTransmissionData.tsv"
 
 rawData <- read.table(file=metadataFile,header = TRUE,as.is = TRUE,fill = TRUE, sep = "\t", quote = "") %>%
