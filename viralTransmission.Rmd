@@ -1,0 +1,955 @@
+---
+output: 
+  pdf_document: 
+    keep_tex: yes
+    df_print: kable
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warnings = FALSE, message = FALSE, warning = FALSE)
+options(knitr.table.format = "latex") 
+library(ggplot2)
+library(knitr)
+library(dplyr)
+library(tidyr)
+library(kableExtra)
+library(merf)
+
+metadataFile <- "/home/kevin/projects/viralTransmission/viral-transmission/viralTransmissionData.tsv"
+
+rawData <- read.table(file=metadataFile,header = TRUE,as.is = TRUE,fill = TRUE, sep = "\t", quote = "") %>%
+  arrange(Common.Name)
+
+data <- rawData %>% filter(unclear_transmission==FALSE) %>%
+  mutate(Lipid.Envelope=as.logical(Lipid.Envelope),
+         Spherical=as.logical(Spherical))
+
+printByHost = TRUE
+printTestFigures = TRUE
+printTests = FALSE
+
+transmissionVars <- c("fecal.oral","arbovirus","Inhalation..aerosols","inhalation..dust.feces","sexual","eating","oral.bloodstream..biting.","breastfeeding","maternal.fetal..transplacenta.etc..","maternal.fetal..germ.line.","blood.transfusion.transplant.injection.drugs.needles.cuts","Contact.w.body.fluids.skin.eye.fomites")
+transmissionCols <- which(colnames(data) %in% transmissionVars)
+
+attributeVars <- c("NucAcid","Spherical","Filamentous","Pleomorphic","Bullet.form","Lipid.Envelope")
+attributeCols <- which(colnames(data) %in% attributeVars)
+
+humanData <- data %>% filter(Common.Name == 'Human')
+nonhumanData <- data %>% filter(Common.Name != 'Human')
+
+vfData <- data %>%
+  group_by(Host.species, Common.Name, Virus.family, NucAcid) %>%
+  summarize_if(is.logical, function(X) { if(sum(X) > 0) { return(TRUE) } else { return(FALSE)}}) %>%
+  ungroup() %>%
+  as.data.frame()
+
+famTransmissionCols <- which(colnames(vfData) %in% transmissionVars)
+famAttributeCols <- which(colnames(vfData) %in% attributeVars)
+
+vfDataH <- data %>% filter(Common.Name == "Human") %>%
+  group_by(Host.species, Common.Name, Virus.family, NucAcid) %>%
+  summarize_if(is.logical, function(X) { if(sum(X) > 0) { return(TRUE) } else { return(FALSE)}}) %>%
+  ungroup() %>%
+  as.data.frame()
+
+famTransmissionColsH <- which(colnames(vfDataH) %in% transmissionVars)
+famAttributeColsH <- which(colnames(vfDataH) %in% attributeVars)
+
+vfDataNH <- data %>% filter(Common.Name != "Human") %>%
+  group_by(Host.species, Common.Name, Virus.family, NucAcid) %>%
+  summarize_if(is.logical, function(X) { if(sum(X) > 0) { return(TRUE) } else { return(FALSE)}}) %>%
+  ungroup() %>%
+  arrange(Common.Name) %>%
+  as.data.frame()
+
+famTransmissionColsNH <- which(colnames(vfDataNH) %in% transmissionVars)
+famAttributeColsNH <- which(colnames(vfDataNH) %in% attributeVars)
+
+```
+
+# Overview
+
+This report serves to investigate the relationship between various modes of transmission of viruses causing disease in humans and other attributes of those viruses (physical structure, classification, etc.).  This report includes metadata for `r nrow(rawData)` individual viral species.
+
+# Host Species
+
+Our data included viruses from `r nrow(rawData %>% distinct(Common.Name))` host species.  Our analyses below include a global view as well as a look at the viruses for each individual host species.
+
+# Initial Filter
+
+Our data set of `r nrow(rawData)` individual viral species included `r nrow(rawData %>% filter(unclear_transmission==TRUE))` species with an unclear mechanism of transmission and thus were excluded from our analysis.
+
+# Statistical Methods
+
+We looked at the relationship between `r length(transmissionVars)`* different modes of transmission against `r length(attributeVars)` other viral attributes.  For each mode-attribute pair, we performed a Fisher's exact test to see if there is a non-random association between the variables.  The initial p-values from these tests were adjusted using the Benjamini-Hochberg correction method.
+
+
+*Our data initially separated modes of transmission by mosquito, tick, and other arthropods, but for statistical analyses we grouped these into one test for arboviruses.
+
+```{r virus.counts.by.host, echo=FALSE, eval=TRUE, results='asis', fig.height=3}
+
+cat(paste0("\n\n# Virus count by host species\n"))
+
+rawData %>% group_by(Common.Name) %>%
+  summarize(count=n()) %>%
+  kable(col.names=c("Host","Virus count"))
+
+```
+
+```{r figures, echo=FALSE, eval=printTestFigures, results='asis', fig.height=3}
+
+cat("\n\n\\pagebreak\n")
+cat(paste0("\n\n# Analysis for all host species\n"))
+
+pValues <- NULL
+odds <- NULL
+confIntLow <- NULL
+confIntHigh <- NULL
+iVals <- NULL
+jVals <- NULL
+
+for(i in attributeCols) {
+  if(length(unique(data[,i]))==2) {
+    for(j in transmissionCols) {
+      if(length(unique(data[,j]))==2) {
+        tbl <- table(data[,i],data[,j])
+        ft <- fisher.test(tbl)
+        pValues <- append(pValues,ft$p.value)
+        iVals <- append(iVals, i)
+        jVals <- append(jVals, j)
+        odds <- append(odds, ft$estimate)
+        confIntLow <- append(confIntLow, ft$conf.int[1])
+        confIntHigh <- append(confIntHigh, ft$conf.int[2])
+      }
+    }
+  }
+}
+
+pValuesAdj <- p.adjust(pValues, method = 'BH')
+names(pValuesAdj) <- pValues
+pThreshold <- 0.05
+
+data.frame(x=sort(pValues),
+           y=sort(pValuesAdj)) %>%
+  mutate(significance=if_else(x < pThreshold, "significant before correction", "not significant")) %>%
+  mutate(significance=if_else(y < pThreshold, "significant", significance)) %>%
+  ggplot(aes(x=x,y=y, color=significance)) +
+  geom_point() +
+  scale_color_manual(values=c("significant"="red","not significant"="black", "significant before correction"="ForestGreen")) +
+  geom_hline(yintercept = pThreshold) + geom_vline(xintercept = pThreshold) +
+  xlab("Significance ") + ylab("p-value")
+
+
+print(data.frame(pval=1/pValuesAdj,
+                 odds=odds,
+                 cil=confIntLow,
+                 cih=confIntHigh,
+                 i=iVals,
+                 j=jVals,
+                 label=paste0(colnames(data)[iVals], " vs ",colnames(data)[jVals]),
+                 stringsAsFactors = FALSE) %>%
+        filter(pValuesAdj < 0.05) %>%
+        mutate(maxcih=max(cih[is.finite(cih)])) %>%
+        mutate(odds=if_else(is.finite(odds),odds,maxcih),
+               cih=if_else(is.finite(cih),cih,maxcih)) %>%
+        arrange(-pval, odds, -cih, cil) %>%
+        arrange(pval, -odds, -cih, cil) %>%
+        mutate(label=factor(label,levels=label)) %>%
+        ggplot(aes(x=label,y=odds)) +
+        geom_point(stat="identity") +
+        geom_segment(aes(x=label,xend=label,y=cil,yend=cih)) +
+        geom_hline(yintercept = 1, color="red") +
+        ylab("Odds ratio (+ confidence interval)") + xlab("Test performed") +
+        scale_y_log10() +
+        coord_flip())
+
+```
+
+```{r fisher.tests, echo=FALSE, eval=printTests, results='asis', fig.height=3}
+
+
+for(i in attributeCols) {
+  attribute <- colnames(data)[i]
+  cat("\n\n\\pagebreak\n")
+  if(length(unique(data[,i]))==2) {
+    cat(paste0("\n\n# Comparison of attribute '", attribute, "'"))
+    for(j in transmissionCols) {
+      transmission <- colnames(data)[j]
+      cat(paste0("\n\n### Transmission mode '", transmission, "' vs attribute '", attribute, "'\n"))
+      tbl <- table(data[,i],data[,j])
+      df <- as.data.frame(tbl) %>% spread(Var2, Freq) %>% select(1,3,2) %>%
+        mutate(Var1=paste0(attribute, " = ", Var1))
+      colnames(df) <- c("",transmission,"other")
+      print(kable(df))
+      ft <- fisher.test(tbl)
+      pValue <- ft$p.value
+      pValueAdj <- pValuesAdj[as.character(pValue)]
+      color <- if_else(pValueAdj < pThreshold,"red",if_else(pValue < pThreshold, "ForestGreen", "black"))
+      cat(paste0("\\textcolor{",color,"}{p-value = ",round(pValue,digits = 5),"}\\newline"))
+      cat(paste0("\\textcolor{",color,"}{adjusted p-value = ",round(pValueAdj,digits = 5),"}"))
+    }
+  } else {
+    for(value in unique(data[,i])) {
+      cat(paste0("\n\n# Comparison of value '", value, "' for attribute '", attribute,"'"))
+      for(j in transmissionCols) {
+        transmission <- colnames(data)[j]
+        cat(paste0("\n\n### Transmission mode '", transmission, "' vs value '", value, "'\n"))
+        tbl <- table(data[,i]==value,data[,j])
+        df <- as.data.frame(tbl) %>% spread(Var2, Freq) %>% select(1,3,2) %>%
+          mutate_at(vars("Var1"),funs(if_else(Var1=="TRUE",paste0(attribute, " = ", value),paste0(attribute, " !=  ", value))))
+        colnames(df) <- c("",transmission,"other")
+        print(kable(df))
+        ft <- fisher.test(tbl)
+        color <- if_else(ft$p.value < pThreshold,"red","black")
+        cat(paste0("\\textcolor{",color,"}{p-value = ",round(ft$p.value,digits = 5),"}"))
+      }
+    }
+  }
+}
+
+```
+
+
+```{r figures.human, echo=FALSE, eval=printTestFigures, results='asis', fig.height=3}
+
+cat("\n\n\\pagebreak\n")
+cat(paste0("\n\n# Analysis for humans\n"))
+
+pValues <- NULL
+odds <- NULL
+confIntLow <- NULL
+confIntHigh <- NULL
+iVals <- NULL
+jVals <- NULL
+
+for(i in attributeCols) {
+  if(length(unique(humanData[,i]))==2) {
+    for(j in transmissionCols) {
+      if(length(unique(humanData[,j]))==2) {
+        tbl <- table(humanData[,i],humanData[,j])
+        ft <- fisher.test(tbl)
+        pValues <- append(pValues,ft$p.value)
+        iVals <- append(iVals, i)
+        jVals <- append(jVals, j)
+        odds <- append(odds, ft$estimate)
+        confIntLow <- append(confIntLow, ft$conf.int[1])
+        confIntHigh <- append(confIntHigh, ft$conf.int[2])
+      }
+    }
+  }
+}
+
+pValuesAdj <- p.adjust(pValues, method = 'BH')
+names(pValuesAdj) <- pValues
+pThreshold <- 0.05
+  
+print(data.frame(x=sort(pValues),
+           y=sort(pValuesAdj)) %>%
+  mutate(significance=if_else(x < pThreshold, "significant before correction", "not significant")) %>%
+  mutate(significance=if_else(y < pThreshold, "significant", significance)) %>%
+  ggplot(aes(x=x,y=y, color=significance)) +
+  geom_point() +
+  scale_color_manual(values=c("significant"="red","not significant"="black", "significant before correction"="ForestGreen")) +
+  geom_hline(yintercept = pThreshold) + geom_vline(xintercept = pThreshold) +
+  xlab("Significance ") + ylab("p-value"))
+
+print(data.frame(pval=1/pValuesAdj,
+                 odds=odds,
+                 cil=confIntLow,
+                 cih=confIntHigh,
+                 i=iVals,
+                 j=jVals,
+                 label=paste0(colnames(data)[iVals], " vs ",colnames(data)[jVals]),
+                 stringsAsFactors = FALSE) %>%
+        filter(pValuesAdj < 0.05) %>%
+        mutate(maxcih=max(cih[is.finite(cih)])) %>%
+        mutate(odds=if_else(is.finite(odds),odds,maxcih),
+               cih=if_else(is.finite(cih),cih,maxcih)) %>%
+        arrange(-pval, odds, -cih, cil) %>%
+        arrange(pval, -odds, -cih, cil) %>%
+        mutate(label=factor(label,levels=label)) %>%
+        ggplot(aes(x=label,y=odds)) +
+        geom_point(stat="identity") +
+        geom_segment(aes(x=label,xend=label,y=cil,yend=cih)) +
+        geom_hline(yintercept = 1, color="red") +
+        ylab("Odds ratio (+ confidence interval)") + xlab("Test performed") +
+        scale_y_log10() +
+        coord_flip())
+
+```
+
+```{r fisher.tests.human, echo=FALSE, eval=printTests, results='asis', fig.height=3}
+
+for(i in attributeCols) {
+  attribute <- colnames(humanData)[i]
+  cat("\n\n\\pagebreak\n")
+  if(length(unique(humanData[,i]))==1) {
+    next
+  }
+  if(length(unique(humanData[,i]))==2) {
+    cat(paste0("\n\n# Comparison of attribute '", attribute, "' in humans"))
+    for(j in transmissionCols) {
+      if(length(unique(humanData[,j]))==1) {
+        next
+      }
+      transmission <- colnames(humanData)[j]
+      cat(paste0("\n\n### Transmission mode '", transmission, "' vs attribute '", attribute, "' in human\n"))
+      tbl <- table(humanData[,i],humanData[,j])
+      df <- as.data.frame(tbl) %>% spread(Var2, Freq) %>% select(1,3,2) %>%
+        mutate(Var1=paste0(attribute, " = ", Var1))
+      colnames(df) <- c("",transmission,"other")
+      print(kable(df))
+      ft <- fisher.test(tbl)
+      pValue <- ft$p.value
+      pValueAdj <- pValuesAdj[as.character(pValue)]
+      color <- if_else(pValueAdj < pThreshold,"red",if_else(pValue < pThreshold, "ForestGreen", "black"))
+      cat(paste0("\\textcolor{",color,"}{p-value = ",round(pValue,digits = 5),"}\\newline"))
+      cat(paste0("\\textcolor{",color,"}{adjusted p-value = ",round(pValueAdj,digits = 5),"}"))
+    }
+  } else {
+    for(value in unique(humanData[,i])) {
+      if(length(unique(humanData[,j]))==1) {
+        next
+      }
+      cat(paste0("\n\n### Transmission mode '", transmission, "' vs attribute '", attribute, "' in humans\n"))
+      for(j in transmissionCols) {
+        transmission <- colnames(humanData)[j]
+        cat(paste0("\n\n### Transmission mode '", transmission, "' vs value '", value, "'\n"))
+        tbl <- table(humanData[,i]==value,humanData[,j])
+        df <- as.data.frame(tbl) %>% spread(Var2, Freq) %>% select(1,3,2) %>%
+          mutate_at(vars("Var1"),funs(if_else(Var1=="TRUE",paste0(attribute, " = ", value),paste0(attribute, " !=  ", value))))
+        colnames(df) <- c("",transmission,"other")
+        print(kable(df))
+        ft <- fisher.test(tbl)
+        color <- if_else(ft$p.value < pThreshold,"red","black")
+        cat(paste0("\\textcolor{",color,"}{p-value = ",round(ft$p.value,digits = 5),"}"))
+      }
+    }
+  }
+}
+
+```
+
+```{r figures.nonhuman, echo=FALSE, eval=printTestFigures, results='asis', fig.height=3}
+
+cat("\n\n\\pagebreak\n")
+cat(paste0("\n\n# Analysis for all non-human host species\n"))
+
+pValues <- NULL
+odds <- NULL
+confIntLow <- NULL
+confIntHigh <- NULL
+iVals <- NULL
+jVals <- NULL
+
+for(i in attributeCols) {
+  if(length(unique(nonhumanData[,i]))==2) {
+    for(j in transmissionCols) {
+      if(length(unique(nonhumanData[,j]))==2) {
+        tbl <- table(nonhumanData[,i],nonhumanData[,j])
+        ft <- fisher.test(tbl)
+        pValues <- append(pValues,ft$p.value)
+        iVals <- append(iVals, i)
+        jVals <- append(jVals, j)
+        odds <- append(odds, ft$estimate)
+        confIntLow <- append(confIntLow, ft$conf.int[1])
+        confIntHigh <- append(confIntHigh, ft$conf.int[2])
+      }
+    }
+  }
+}
+
+pValuesAdj <- p.adjust(pValues, method = 'BH')
+names(pValuesAdj) <- pValues
+pThreshold <- 0.05
+  
+print(data.frame(x=sort(pValues),
+           y=sort(pValuesAdj)) %>%
+  mutate(significance=if_else(x < pThreshold, "significant before correction", "not significant")) %>%
+  mutate(significance=if_else(y < pThreshold, "significant", significance)) %>%
+  ggplot(aes(x=x,y=y, color=significance)) +
+  geom_point() +
+  scale_color_manual(values=c("significant"="red","not significant"="black", "significant before correction"="ForestGreen")) +
+  geom_hline(yintercept = pThreshold) + geom_vline(xintercept = pThreshold) +
+  xlab("Significance ") + ylab("p-value"))
+
+print(data.frame(pval=1/pValuesAdj,
+                 odds=odds,
+                 cil=confIntLow,
+                 cih=confIntHigh,
+                 i=iVals,
+                 j=jVals,
+                 label=paste0(colnames(data)[iVals], " vs ",colnames(data)[jVals]),
+                 stringsAsFactors = FALSE) %>%
+        filter(pValuesAdj < 0.05) %>%
+        mutate(maxcih=max(cih[is.finite(cih)])) %>%
+        mutate(odds=if_else(is.finite(odds),odds,maxcih),
+               cih=if_else(is.finite(cih),cih,maxcih)) %>%
+        arrange(-pval, odds, -cih, cil) %>%
+        arrange(pval, -odds, -cih, cil) %>%
+        mutate(label=factor(label,levels=label)) %>%
+        ggplot(aes(x=label,y=odds)) +
+        geom_point(stat="identity") +
+        geom_segment(aes(x=label,xend=label,y=cil,yend=cih)) +
+        geom_hline(yintercept = 1, color="red") +
+        ylab("Odds ratio (+ confidence interval)") + xlab("Test performed") +
+        scale_y_log10() +
+        coord_flip())
+
+```
+
+```{r fisher.tests.nonhuman, echo=FALSE, eval=printTests, results='asis', fig.height=3}
+
+
+for(i in attributeCols) {
+  attribute <- colnames(nonhumanData)[i]
+  cat("\n\n\\pagebreak\n")
+  if(length(unique(nonhumanData[,i]))==1) {
+    next
+  }
+  if(length(unique(nonhumanData[,i]))==2) {
+    cat(paste0("\n\n# Comparison of attribute '", attribute, "' for non-human hosts"))
+    for(j in transmissionCols) {
+      if(length(unique(nonhumanData[,j]))==1) {
+        next
+      }
+      transmission <- colnames(nonhumanData)[j]
+      cat(paste0("\n\n### Transmission mode '", transmission, "' vs attribute '", attribute, "' in non-human hosts\n"))
+      tbl <- table(nonhumanData[,i],nonhumanData[,j])
+      df <- as.data.frame(tbl) %>% spread(Var2, Freq) %>% select(1,3,2) %>%
+        mutate(Var1=paste0(attribute, " = ", Var1))
+      colnames(df) <- c("",transmission,"other")
+      print(kable(df))
+      ft <- fisher.test(tbl)
+      pValue <- ft$p.value
+      pValueAdj <- pValuesAdj[as.character(pValue)]
+      color <- if_else(pValueAdj < pThreshold,"red",if_else(pValue < pThreshold, "ForestGreen", "black"))
+      cat(paste0("\\textcolor{",color,"}{p-value = ",round(pValue,digits = 5),"}\\newline"))
+      cat(paste0("\\textcolor{",color,"}{adjusted p-value = ",round(pValueAdj,digits = 5),"}"))
+    }
+  } else {
+    for(value in unique(nonhumanData[,i])) {
+      if(length(unique(nonhumanData[,j]))==1) {
+        next
+      }
+      cat(paste0("\n\n### Transmission mode '", transmission, "' vs attribute '", attribute, "' in non-human hosts\n"))
+      for(j in transmissionCols) {
+        transmission <- colnames(nonhumanData)[j]
+        cat(paste0("\n\n### Transmission mode '", transmission, "' vs value '", value, "'\n"))
+        tbl <- table(nonhumanData[,i]==value,nonhumanData[,j])
+        df <- as.data.frame(tbl) %>% spread(Var2, Freq) %>% select(1,3,2) %>%
+          mutate_at(vars("Var1"),funs(if_else(Var1=="TRUE",paste0(attribute, " = ", value),paste0(attribute, " !=  ", value))))
+        colnames(df) <- c("",transmission,"other")
+        print(kable(df))
+        ft <- fisher.test(tbl)
+        color <- if_else(ft$p.value < pThreshold,"red","black")
+        cat(paste0("\\textcolor{",color,"}{p-value = ",round(ft$p.value,digits = 5),"}"))
+      }
+    }
+  }
+}
+
+```
+
+```{r host.fisher.tests, echo=FALSE, eval=printByHost, results='asis', fig.height=3}
+for(host in unique(data$Common.Name)) {
+  cat("\n\n\\pagebreak\n")
+  cat(paste0("\n\n# Analysis for host '", host, "'\n"))
+  
+  hostData <- data %>% filter(Common.Name==host)
+  
+  pValues <- NULL
+  odds <- NULL
+  confIntLow <- NULL
+  confIntHigh <- NULL
+  iVals <- NULL
+  jVals <- NULL
+  
+  for(i in attributeCols) {
+    if(length(unique(hostData[,i]))==2) {
+      for(j in transmissionCols) {
+        if(length(unique(hostData[,j]))==2) {
+          tbl <- table(hostData[,i],hostData[,j])
+          ft <- fisher.test(tbl)
+          pValues <- append(pValues,ft$p.value)
+          iVals <- append(iVals, i)
+          jVals <- append(jVals, j)
+          odds <- append(odds, ft$estimate)
+          confIntLow <- append(confIntLow, ft$conf.int[1])
+          confIntHigh <- append(confIntHigh, ft$conf.int[2])
+        }
+      }
+    }
+  }
+  
+  pValuesAdj <- p.adjust(pValues, method = 'BH')
+  names(pValuesAdj) <- pValues
+  pThreshold <- 0.05
+  
+  if(printTestFigures) {
+    print(data.frame(x=sort(pValues),
+               y=sort(pValuesAdj)) %>%
+      mutate(significance=if_else(x < pThreshold, "significant before correction", "not significant")) %>%
+      mutate(significance=if_else(y < pThreshold, "significant", significance)) %>%
+      ggplot(aes(x=x,y=y, color=significance)) +
+      geom_point() +
+      scale_color_manual(values=c("significant"="red","not significant"="black", "significant before correction"="ForestGreen")) +
+      geom_hline(yintercept = pThreshold) + geom_vline(xintercept = pThreshold) +
+      xlab("Significance ") + ylab("p-value"))
+  
+    print(data.frame(pval=1/pValuesAdj,
+                     odds=odds,
+                     cil=confIntLow,
+                     cih=confIntHigh,
+                     i=iVals,
+                     j=jVals,
+                     label=paste0(colnames(data)[iVals], " vs ",colnames(data)[jVals]),
+                     stringsAsFactors = FALSE) %>%
+            filter(pValuesAdj < 0.05) %>%
+            mutate(maxcih=max(cih[is.finite(cih)])) %>%
+            mutate(odds=if_else(is.finite(odds),odds,maxcih),
+                   cih=if_else(is.finite(cih),cih,maxcih)) %>%
+            arrange(-pval, odds, -cih, cil) %>%
+            arrange(pval, -odds, -cih, cil) %>%
+            mutate(label=factor(label,levels=label)) %>%
+            ggplot(aes(x=label,y=odds)) +
+            geom_point(stat="identity") +
+            geom_segment(aes(x=label,xend=label,y=cil,yend=cih)) +
+            geom_hline(yintercept = 1, color="red") +
+            ylab("Odds ratio (+ confidence interval)") + xlab("Test performed") +
+            scale_y_log10() +
+            coord_flip())
+  }
+  
+  if(printTests) {
+    for(i in attributeCols) {
+      attribute <- colnames(hostData)[i]
+      cat("\n\n\\pagebreak\n")
+      if(length(unique(hostData[,i]))==2) {
+        cat(paste0("\n\n# Comparison of attribute '", attribute, "' for host ", host))
+        for(j in transmissionCols) {
+          if(length(unique(hostData[,j]))==2) {
+            transmission <- colnames(hostData)[j]
+            cat(paste0("\n\n### Transmission mode '", transmission, "' vs attribute '", attribute, "' in ", host, "\n"))
+            tbl <- table(hostData[,i],hostData[,j])
+            df <- as.data.frame(tbl) %>% spread(Var2, Freq) %>% select(1,3,2) %>%
+              mutate(Var1=paste0(attribute, " = ", Var1))
+            colnames(df) <- c("",transmission,"other")
+            print(kable(df))
+            ft <- fisher.test(tbl)
+            pValue <- ft$p.value
+            pValueAdj <- pValuesAdj[as.character(pValue)]
+            color <- if_else(pValueAdj < pThreshold,"red",if_else(pValue < pThreshold, "ForestGreen", "black"))
+            cat(paste0("\\textcolor{",color,"}{p-value = ",round(pValue,digits = 5),"}\\newline"))
+            cat(paste0("\\textcolor{",color,"}{adjusted p-value = ",round(pValueAdj,digits = 5),"}"))
+          }
+        }
+      } 
+    }
+  }
+}
+
+```
+
+```{r figures.viralFamilies, echo=FALSE, eval=printTestFigures, results='asis', fig.height=3}
+
+cat("\n\n\\pagebreak\n")
+cat(paste0("\n\n# Analysis for viral families in all host species\n"))
+
+
+pValues <- NULL
+odds <- NULL
+confIntLow <- NULL
+confIntHigh <- NULL
+iVals <- NULL
+jVals <- NULL
+
+for(i in famAttributeCols) {
+  if(length(unique(vfData[,i]))==2) {
+    for(j in famTransmissionCols) {
+      if(length(unique(vfData[,j]))==2) {
+        tbl <- table(vfData[,i],vfData[,j])
+        ft <- fisher.test(tbl)
+        pValues <- append(pValues,ft$p.value)
+        iVals <- append(iVals, i)
+        jVals <- append(jVals, j)
+        odds <- append(odds, ft$estimate)
+        confIntLow <- append(confIntLow, ft$conf.int[1])
+        confIntHigh <- append(confIntHigh, ft$conf.int[2])
+      }
+    }
+  }
+}
+
+pValuesAdj <- p.adjust(pValues, method = 'BH')
+names(pValuesAdj) <- pValues
+pThreshold <- 0.05
+
+data.frame(x=sort(pValues),
+           y=sort(pValuesAdj)) %>%
+  mutate(significance=if_else(x < pThreshold, "significant before correction", "not significant")) %>%
+  mutate(significance=if_else(y < pThreshold, "significant", significance)) %>%
+  ggplot(aes(x=x,y=y, color=significance)) +
+  geom_point() +
+  scale_color_manual(values=c("significant"="red","not significant"="black", "significant before correction"="ForestGreen")) +
+  geom_hline(yintercept = pThreshold) + geom_vline(xintercept = pThreshold) +
+  xlab("Significance ") + ylab("p-value")
+
+data.frame(pval=1/pValuesAdj,
+                 odds=odds,
+                 cil=confIntLow,
+                 cih=confIntHigh,
+                 i=iVals,
+                 j=jVals,
+                 label=paste0(colnames(vfData)[iVals], " vs ",colnames(vfData)[jVals]),
+                 stringsAsFactors = FALSE) %>%
+        filter(pValuesAdj < 0.05) %>%
+        mutate(maxcih=max(cih[is.finite(cih)])) %>%
+        mutate(odds=if_else(is.finite(odds),odds,maxcih),
+               cih=if_else(is.finite(cih),cih,maxcih)) %>%
+        arrange(-pval, odds, -cih, cil) %>%
+        arrange(pval, -odds, -cih, cil) %>%
+        mutate(label=factor(label,levels=label)) %>%
+        ggplot(aes(x=label,y=odds)) +
+        geom_point(stat="identity") +
+        geom_segment(aes(x=label,xend=label,y=cil,yend=cih)) +
+        geom_hline(yintercept = 1, color="red") +
+        ylab("Odds ratio (+ confidence interval)") + xlab("Test performed") +
+        scale_y_log10() +
+        coord_flip()
+```
+
+```{r fisher.tests.viralFamilies, echo=FALSE, eval=printTests, results='asis', fig.height=3}
+
+
+for(i in famAttributeCols) {
+  attribute <- colnames(vfData)[i]
+  if(length(unique(vfData[,i]))==2) {
+    cat("\n\n\\pagebreak\n")
+    cat(paste0("\n\n# Comparison of attribute '", attribute, "' for viral families\n"))
+    for(j in famTransmissionCols) {
+      if(length(unique(vfData[,j]))==2) {
+        transmission <- colnames(vfData)[j]
+        cat(paste0("\n\n### Transmission mode '", transmission, "' vs attribute '", attribute, "'\n"))
+        tbl <- table(vfData[,i],vfData[,j])
+        df <- as.data.frame(tbl) %>% spread(Var2, Freq) %>% select(1,3,2) %>%
+          mutate(Var1=paste0(attribute, " = ", Var1))
+        colnames(df) <- c("",transmission,"other")
+        print(kable(df))
+        ft <- fisher.test(tbl)
+        pValue <- ft$p.value
+        pValueAdj <- pValuesAdj[as.character(pValue)]
+        color <- if_else(pValueAdj < pThreshold,"red",if_else(pValue < pThreshold, "ForestGreen", "black"))
+        cat(paste0("\\textcolor{",color,"}{p-value = ",round(pValue,digits = 5),"}\\newline"))
+        cat(paste0("\\textcolor{",color,"}{adjusted p-value = ",round(pValueAdj,digits = 5),"}"))
+      }
+    }
+  }
+}
+
+```
+
+```{r figures.human.viralFamilies, echo=FALSE, eval=printTestFigures, results='asis', fig.height=3}
+
+cat("\n\n\\pagebreak\n")
+cat(paste0("\n\n# Analysis for viral families in humans\n"))
+
+
+pValues <- NULL
+odds <- NULL
+confIntLow <- NULL
+confIntHigh <- NULL
+iVals <- NULL
+jVals <- NULL
+
+for(i in famAttributeColsH) {
+  if(length(unique(vfDataH[,i]))==2) {
+    for(j in famTransmissionColsH) {
+      if(length(unique(vfDataH[,j]))==2) {
+        tbl <- table(vfDataH[,i],vfDataH[,j])
+        ft <- fisher.test(tbl)
+        pValues <- append(pValues,ft$p.value)
+        iVals <- append(iVals, i)
+        jVals <- append(jVals, j)
+        odds <- append(odds, ft$estimate)
+        confIntLow <- append(confIntLow, ft$conf.int[1])
+        confIntHigh <- append(confIntHigh, ft$conf.int[2])
+      }
+    }
+  }
+}
+
+pValuesAdj <- p.adjust(pValues, method = 'BH')
+names(pValuesAdj) <- pValues
+pThreshold <- 0.05
+
+data.frame(x=sort(pValues),
+           y=sort(pValuesAdj)) %>%
+  mutate(significance=if_else(x < pThreshold, "significant before correction", "not significant")) %>%
+  mutate(significance=if_else(y < pThreshold, "significant", significance)) %>%
+  ggplot(aes(x=x,y=y, color=significance)) +
+  geom_point() +
+  scale_color_manual(values=c("significant"="red","not significant"="black", "significant before correction"="ForestGreen")) +
+  geom_hline(yintercept = pThreshold) + geom_vline(xintercept = pThreshold) +
+  xlab("Significance ") + ylab("p-value")
+
+data.frame(pval=1/pValuesAdj,
+                 odds=odds,
+                 cil=confIntLow,
+                 cih=confIntHigh,
+                 i=iVals,
+                 j=jVals,
+                 label=paste0(colnames(vfDataH)[iVals], " vs ",colnames(vfDataH)[jVals]),
+                 stringsAsFactors = FALSE) %>%
+        filter(pValuesAdj < 0.05) %>%
+        mutate(maxcih=max(cih[is.finite(cih)])) %>%
+        mutate(odds=if_else(is.finite(odds),odds,maxcih),
+               cih=if_else(is.finite(cih),cih,maxcih)) %>%
+        arrange(-pval, odds, -cih, cil) %>%
+        arrange(pval, -odds, -cih, cil) %>%
+        mutate(label=factor(label,levels=label)) %>%
+        ggplot(aes(x=label,y=odds)) +
+        geom_point(stat="identity") +
+        geom_segment(aes(x=label,xend=label,y=cil,yend=cih)) +
+        geom_hline(yintercept = 1, color="red") +
+        ylab("Odds ratio (+ confidence interval)") + xlab("Test performed") +
+        scale_y_log10() +
+        coord_flip()
+
+```
+
+```{r fisher.tests.human.viralFamilies, echo=FALSE, eval=printTests, results='asis', fig.height=3}
+
+for(i in famAttributeColsH) {
+  attribute <- colnames(vfDataH)[i]
+  if(length(unique(vfDataH[,i]))==2) {
+    cat("\n\n\\pagebreak\n")
+    cat(paste0("\n\n# Comparison of attribute '", attribute, "' for viral families in humans\n"))
+    for(j in famTransmissionColsH) {
+      if(length(unique(vfDataH[,j]))==2) {
+        transmission <- colnames(vfDataH)[j]
+        cat(paste0("\n\n### Transmission mode '", transmission, "' vs attribute '", attribute, "' in humans\n"))
+        tbl <- table(vfDataH[,i],vfDataH[,j])
+        df <- as.data.frame(tbl) %>% spread(Var2, Freq) %>% select(1,3,2) %>%
+          mutate(Var1=paste0(attribute, " = ", Var1))
+        colnames(df) <- c("",transmission,"other")
+        print(kable(df))
+        ft <- fisher.test(tbl)
+        pValue <- ft$p.value
+        pValueAdj <- pValuesAdj[as.character(pValue)]
+        color <- if_else(pValueAdj < pThreshold,"red",if_else(pValue < pThreshold, "ForestGreen", "black"))
+        cat(paste0("\\textcolor{",color,"}{p-value = ",round(pValue,digits = 5),"}\\newline"))
+        cat(paste0("\\textcolor{",color,"}{adjusted p-value = ",round(pValueAdj,digits = 5),"}"))
+      }
+    }
+  }
+}
+
+
+```
+
+```{r figures.nonhuman.viralFamilies, echo=FALSE, eval=printTestFigures, results='asis', fig.height=3}
+
+cat("\n\n\\pagebreak\n")
+cat(paste0("\n\n# Analysis for viral families in non-human hosts\n"))
+
+
+pValues <- NULL
+odds <- NULL
+confIntLow <- NULL
+confIntHigh <- NULL
+iVals <- NULL
+jVals <- NULL
+
+for(i in famAttributeCols) {
+  if(length(unique(vfData[,i]))==2) {
+    for(j in famTransmissionCols) {
+      if(length(unique(vfData[,j]))==2) {
+        tbl <- table(vfData[,i],vfData[,j])
+        ft <- fisher.test(tbl)
+        pValues <- append(pValues,ft$p.value)
+        iVals <- append(iVals, i)
+        jVals <- append(jVals, j)
+        odds <- append(odds, ft$estimate)
+        confIntLow <- append(confIntLow, ft$conf.int[1])
+        confIntHigh <- append(confIntHigh, ft$conf.int[2])
+      }
+    }
+  }
+}
+
+pValuesAdj <- p.adjust(pValues, method = 'BH')
+names(pValuesAdj) <- pValues
+pThreshold <- 0.05
+
+data.frame(x=sort(pValues),
+           y=sort(pValuesAdj)) %>%
+  mutate(significance=if_else(x < pThreshold, "significant before correction", "not significant")) %>%
+  mutate(significance=if_else(y < pThreshold, "significant", significance)) %>%
+  ggplot(aes(x=x,y=y, color=significance)) +
+  geom_point() +
+  scale_color_manual(values=c("significant"="red","not significant"="black", "significant before correction"="ForestGreen")) +
+  geom_hline(yintercept = pThreshold) + geom_vline(xintercept = pThreshold) +
+  xlab("Significance ") + ylab("p-value")
+
+data.frame(pval=1/pValuesAdj,
+                 odds=odds,
+                 cil=confIntLow,
+                 cih=confIntHigh,
+                 i=iVals,
+                 j=jVals,
+                 label=paste0(colnames(vfData)[iVals], " vs ",colnames(vfData)[jVals]),
+                 stringsAsFactors = FALSE) %>%
+        filter(pValuesAdj < 0.05) %>%
+        mutate(maxcih=max(cih[is.finite(cih)])) %>%
+        mutate(odds=if_else(is.finite(odds),odds,maxcih),
+               cih=if_else(is.finite(cih),cih,maxcih)) %>%
+        arrange(-pval, odds, -cih, cil) %>%
+        arrange(pval, -odds, -cih, cil) %>%
+        mutate(label=factor(label,levels=label)) %>%
+        ggplot(aes(x=label,y=odds)) +
+        geom_point(stat="identity") +
+        geom_segment(aes(x=label,xend=label,y=cil,yend=cih)) +
+        geom_hline(yintercept = 1, color="red") +
+        ylab("Odds ratio (+ confidence interval)") + xlab("Test performed") +
+        scale_y_log10() +
+        coord_flip()
+
+```
+
+```{r fisher.tests.nonhuman.viralFamilies, echo=FALSE, eval=printTests, results='asis', fig.height=3}
+
+for(i in famAttributeCols) {
+  attribute <- colnames(vfData)[i]
+  if(length(unique(vfData[,i]))==2) {
+    cat("\n\n\\pagebreak\n")
+    cat(paste0("\n\n# Comparison of attribute '", attribute, "' for viral families in non-human hosts\n"))
+    for(j in famTransmissionCols) {
+      if(length(unique(vfData[,j]))==2) {
+        transmission <- colnames(vfData)[j]
+        cat(paste0("\n\n### Transmission mode '", transmission, "' vs attribute '", attribute, "' in non-human hosts\n"))
+        tbl <- table(vfData[,i],vfData[,j])
+        df <- as.data.frame(tbl) %>% spread(Var2, Freq) %>% select(1,3,2) %>%
+          mutate(Var1=paste0(attribute, " = ", Var1))
+        colnames(df) <- c("",transmission,"other")
+        print(kable(df))
+        ft <- fisher.test(tbl)
+        pValue <- ft$p.value
+        pValueAdj <- pValuesAdj[as.character(pValue)]
+        color <- if_else(pValueAdj < pThreshold,"red",if_else(pValue < pThreshold, "ForestGreen", "black"))
+        cat(paste0("\\textcolor{",color,"}{p-value = ",round(pValue,digits = 5),"}\\newline"))
+        cat(paste0("\\textcolor{",color,"}{adjusted p-value = ",round(pValueAdj,digits = 5),"}"))
+      }
+    }
+  }
+}
+```
+
+```{r viralFamiliesByHost, echo=FALSE, eval=printByHost, results='asis', fig.height=3}
+
+for(host in unique(vfData$Common.Name)) {
+  cat("\n\n\\pagebreak\n")
+  cat(paste0("\n\n# Analysis for host '", host, "' for viral families\n"))
+  
+  hostvfData <- data %>%
+  group_by(Host.species, Common.Name, Virus.family, NucAcid) %>%
+  summarize_if(is.logical, function(X) { if(sum(X) > 0) { return(TRUE) } else { return(FALSE)}}) %>%
+  ungroup() %>%
+  as.data.frame() %>%
+  filter(Common.Name==host)
+  
+  pValues <- NULL
+  odds <- NULL
+  confIntLow <- NULL
+  confIntHigh <- NULL
+  iVals <- NULL
+  jVals <- NULL
+  
+  for(i in famAttributeCols) {
+    if(length(unique(hostvfData[,i]))==2) {
+      for(j in famTransmissionCols) {
+        if(length(unique(hostvfData[,j]))==2) {
+          tbl <- table(hostvfData[,i],hostvfData[,j])
+          ft <- fisher.test(tbl)
+          pValues <- append(pValues,ft$p.value)
+          iVals <- append(iVals, i)
+          jVals <- append(jVals, j)
+          odds <- append(odds, ft$estimate)
+          confIntLow <- append(confIntLow, ft$conf.int[1])
+          confIntHigh <- append(confIntHigh, ft$conf.int[2])
+        }
+      }
+    }
+  }
+  
+  pValuesAdj <- p.adjust(pValues, method = 'BH')
+  names(pValuesAdj) <- pValues
+  pThreshold <- 0.05
+  
+  if(printTestFigures) {
+    print(data.frame(x=sort(pValues),
+               y=sort(pValuesAdj)) %>%
+      mutate(significance=if_else(x < pThreshold, "significant before correction", "not significant")) %>%
+      mutate(significance=if_else(y < pThreshold, "significant", significance)) %>%
+      ggplot(aes(x=x,y=y, color=significance)) +
+      geom_point() +
+      scale_color_manual(values=c("significant"="red","not significant"="black", "significant before correction"="ForestGreen")) +
+      geom_hline(yintercept = pThreshold) + geom_vline(xintercept = pThreshold) +
+      xlab("Significance ") + ylab("p-value"))
+  
+    print(data.frame(pval=1/pValuesAdj,
+                   odds=odds,
+                   cil=confIntLow,
+                   cih=confIntHigh,
+                   i=iVals,
+                   j=jVals,
+                   label=paste0(colnames(hostvfData)[iVals], " vs ",colnames(hostvfData)[jVals]),
+                   stringsAsFactors = FALSE) %>%
+          filter(pValuesAdj < 0.05) %>%
+          mutate(maxcih=max(cih[is.finite(cih)])) %>%
+          mutate(odds=if_else(is.finite(odds),odds,maxcih),
+                 cih=if_else(is.finite(cih),cih,maxcih)) %>%
+          arrange(-pval, odds, -cih, cil) %>%
+          arrange(pval, -odds, -cih, cil) %>%
+          mutate(label=factor(label,levels=label)) %>%
+          ggplot(aes(x=label,y=odds)) +
+          geom_point(stat="identity") +
+          geom_segment(aes(x=label,xend=label,y=cil,yend=cih)) +
+          geom_hline(yintercept = 1, color="red") +
+          ylab("Odds ratio (+ confidence interval)") + xlab("Test performed") +
+          scale_y_log10() +
+          coord_flip())
+  }
+  
+  if(printTests) {
+    for(i in famAttributeCols) {
+      attribute <- colnames(hostvfData)[i]
+      cat("\n\n\\pagebreak\n")
+      if(length(unique(hostvfData[,i]))==1) {
+        next
+      }
+      cat(paste0("\n\n# Comparison of attribute '", attribute, "' for host ", host, " for viral families"))
+      for(j in famTransmissionCols) {
+        if(length(unique(hostvfData[,j]))==1) {
+          next
+        }
+        transmission <- colnames(hostvfData)[j]
+        cat(paste0("\n\n### Transmission mode '", transmission, "' vs attribute '", attribute, "' in ", host, "\n"))
+        tbl <- table(hostvfData[,i],hostvfData[,j])
+        df <- as.data.frame(tbl) %>% spread(Var2, Freq) %>% select(1,3,2) %>%
+          mutate(Var1=paste0(attribute, " = ", Var1))
+        colnames(df) <- c("",transmission,"other")
+        print(kable(df))
+        ft <- fisher.test(tbl)
+        pValue <- ft$p.value
+        pValueAdj <- pValuesAdj[as.character(pValue)]
+        color <- if_else(pValueAdj < pThreshold,"red",if_else(pValue < pThreshold, "ForestGreen", "black"))
+        cat(paste0("\\textcolor{",color,"}{p-value = ",round(pValue,digits = 5),"}\\newline"))
+        cat(paste0("\\textcolor{",color,"}{adjusted p-value = ",round(pValueAdj,digits = 5),"}"))
+      }
+    }
+  }
+}
+
+```
+
