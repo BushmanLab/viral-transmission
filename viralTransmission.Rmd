@@ -1,7 +1,4 @@
 ---
-#title: "Viral Transmission Project"
-#author: "Kevin McCormick"
-#date: "`r format(Sys.time(), '%d %B, %Y')`"
 header-includes:
 - \usepackage{pdflscape}
 - \usepackage{colortbl}
@@ -25,10 +22,11 @@ library(tidyr)
 library(kableExtra)
 library(merf)
 
-projectName <- "viralTransmission"
+####
+# Replace with local project directory
+####
 projectDir <- "/home/kevin/projects/viralTransmission/"
 
-system(paste0(projectDir,"download.metadata.sh"))
 rawData <- read.table(file=paste0(projectDir, "viralTransmissionData.tsv"),header = TRUE,as.is = TRUE,fill = TRUE, sep = "\t", quote = "") %>%
   arrange(Common.Name)
 
