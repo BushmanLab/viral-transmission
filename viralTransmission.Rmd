@@ -15,12 +15,9 @@ output:
 knitr::opts_chunk$set(echo = TRUE, warnings = FALSE, message = FALSE, warning = FALSE)
 options(knitr.table.format = "latex") 
 library(ggplot2)
-library(ggforce)
 library(knitr)
 library(dplyr)
 library(tidyr)
-library(kableExtra)
-library(merf)
 
 ####
 # Replace with local project directory
