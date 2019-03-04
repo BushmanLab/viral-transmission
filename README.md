@@ -22,11 +22,11 @@ print(sessionInfo())
 ```
 ## R version 3.4.4 (2018-03-15)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 18.04.1 LTS
+## Running under: Ubuntu 16.04.5 LTS
 ## 
 ## Matrix products: default
-## BLAS: /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.7.1
-## LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.7.1
+## BLAS: /usr/lib/libblas/libblas.so.3.6.0
+## LAPACK: /usr/lib/lapack/liblapack.so.3.6.0
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -40,15 +40,16 @@ print(sessionInfo())
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] bindrcpp_0.2  tidyr_0.7.2   dplyr_0.7.4   ggplot2_2.2.1
+## [1] tidyr_0.8.1   dplyr_0.8.0.1 ggplot2_3.1.0
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.17     assertthat_0.2.0 R6_2.2.2         grid_3.4.4      
-##  [5] plyr_1.8.4       gtable_0.2.0     magrittr_1.5     evaluate_0.10.1 
-##  [9] scales_0.5.0     pillar_1.1.0     rlang_0.2.0.9001 stringi_1.2.4   
-## [13] lazyeval_0.2.1   tools_3.4.4      stringr_1.3.0    glue_1.2.0      
-## [17] purrr_0.2.4      munsell_0.4.3    compiler_3.4.4   pkgconfig_2.0.1 
-## [21] colorspace_1.3-2 bindr_0.1        knitr_1.20       tibble_1.4.2
+##  [1] Rcpp_1.0.0       knitr_1.20       magrittr_1.5     tidyselect_0.2.5
+##  [5] munsell_0.5.0    colorspace_1.3-2 R6_2.2.2         rlang_0.3.1     
+##  [9] stringr_1.3.1    plyr_1.8.4       tools_3.4.4      grid_3.4.4      
+## [13] gtable_0.2.0     withr_2.1.2      lazyeval_0.2.1   assertthat_0.2.0
+## [17] tibble_2.0.1     crayon_1.3.4     purrr_0.2.5      glue_1.3.0      
+## [21] evaluate_0.11    stringi_1.2.4    compiler_3.4.4   pillar_1.3.1    
+## [25] scales_0.5.0     pkgconfig_2.0.2
 ```
 
 
