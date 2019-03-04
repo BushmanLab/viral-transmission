@@ -22,9 +22,8 @@ library(tidyr)
 ####
 # Replace with local project directory
 ####
-projectDir <- "/home/kevin/projects/viralTransmission/"
 
-rawData <- read.table(file=paste0(projectDir, "viralTransmissionData.tsv"),header = TRUE,as.is = TRUE,fill = TRUE, sep = "\t", quote = "") %>%
+rawData <- read.table(file="viralTransmissionData.tsv",header = TRUE,as.is = TRUE,fill = TRUE, sep = "\t", quote = "") %>%
   arrange(Common.Name)
 
 data <- rawData %>% filter(unclear_transmission==FALSE) %>%
