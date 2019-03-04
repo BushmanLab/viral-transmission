@@ -68,7 +68,7 @@ humanPlotFamilyOrder <- humanPlotData %>% filter(Variable=="Baltimore.classifica
 humanPlotData %>%
   mutate(Virus.family=factor(Virus.family, levels=humanPlotFamilyOrder)) %>%
   ggplot(aes(x=Variable,y=species, fill=color)) +
-  geom_tile(aes(width=1),color="black") +
+  geom_tile(aes(),color="black") +
   geom_text(aes(label = labelText), size = 1.5) +
   scale_fill_manual(values = c("red"="red", "blue"="blue","green"="green","light grey"="light grey","white"="white","cyan"="cyan","yellow"="yellow", "black"="black")) +
   xlab("") + ylab("") +
