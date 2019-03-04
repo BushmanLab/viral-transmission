@@ -84,9 +84,9 @@ glmBounds<-glmBounds/log(2)
 
 
 pagels<-parallel::mclapply(structure(attributeVars,.Names=attributeVars),function(att){
-  parallel::mclapply(structure(transmissionVars,.Names=transmissionVars),function(trans){
+  lapply(structure(transmissionVars,.Names=transmissionVars),function(trans){
     phytools::fitPagel(taxaTree,structure(noNa[,att],.Names=rownames(noNa)),structure(noNa[,trans],.Names=rownames(noNa)))
-  },mc.cores=length(transmissionVars))
+  })
 },mc.cores=length(attributeVars))
 pagelP<-do.call(rbind,lapply(pagels,function(xx)sapply(xx,function(yy)yy$P)))
 pagelP[,]<-p.adjust(pagelP,'fdr')
