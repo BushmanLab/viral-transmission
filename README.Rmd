@@ -23,7 +23,6 @@ in this directory. Requires `R` and the `R` packages:
 * dplyr
 * tidyr
 
-## Figure 1: Human viral traits and tranmission modes
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warnings = FALSE, message = FALSE, warning = FALSE)
@@ -51,6 +50,12 @@ attributeCols <- which(colnames(data) %in% attributeVars)
 
 ```
 
+```{r}
+print(sessionInfo())
+```
+
+
+## Figure 1: Human viral traits and tranmission modes
 ```{r humanHeatmap, echo=FALSE, eval=TRUE, results='asis', fig.height=9}
 
 VariableLevels <- c(attributeVars, transmissionVars, "Baltimore.classification")
