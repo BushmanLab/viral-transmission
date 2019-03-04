@@ -18,10 +18,14 @@ make
 ```
 
 in this directory. Requires `R` and the `R` packages:
-* ggplot2
-* knitr
-* dplyr
-* tidyr
+* `ggplot2`
+* `knitr`
+* `dplyr`
+* `tidyr`
+* `ape`
+* `phylolm`
+* `parallel`
+* `phytools`
 
 
 ```{r setup, include=FALSE}
@@ -30,6 +34,10 @@ options(knitr.table.format = "latex")
 library(ggplot2)
 library(dplyr)
 library(tidyr)
+library(ape)
+library(phylolm)
+library(parallel)
+library(phytools)
 
 ####
 # Replace with local project directory
@@ -55,7 +63,7 @@ print(sessionInfo())
 ```
 
 
-## Figure 1: Human viral traits and tranmission modes
+## Figure 1: Human viral traits and transmission modes
 ```{r humanHeatmap, echo=FALSE, eval=TRUE, results='asis', fig.height=9}
 
 VariableLevels <- c(attributeVars, transmissionVars, "Baltimore.classification")
@@ -106,3 +114,7 @@ humanPlotData %>%
 
 
 ```
+
+## Figure 2: Association of viral traits and transmission modes
+![heatmap plots of association analysis](figure/heat.png)
+
