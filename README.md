@@ -6,14 +6,16 @@ make clean
 make
 ```
 
-in this directory. Requires `R` and the `R` packages:
+in this directory. 
+
+The code requires `R` and the `R` packages:
 * `ggplot2`
 * `knitr`
 * `dplyr`
 * `tidyr`
+* `parallel`
 * `ape`
 * `phylolm`
-* `parallel`
 * `phytools`
 
 
