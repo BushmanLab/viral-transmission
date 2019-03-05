@@ -116,7 +116,7 @@ plotHeats<-function(glmBounds,pagelP){
   legend(grconvertX(0.01,'ndc','user'),grconvertY(-0.01,'ndc','user'),names(cols),fill=cols,xpd=NA,yjust=0,title='p-value',ncol=4,bty='n',x.intersp=.1,y.intersp=.8)
 }
 
-pdf('figure/heats.pdf',height=4,width=8)
+pdf('figure/heat.pdf',height=4,width=8)
   plotHeats(glmBounds,pagelP)
 dev.off()
 png('figure/heat.png',height=1000,width=2000,res=250)
