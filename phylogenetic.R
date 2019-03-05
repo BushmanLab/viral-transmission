@@ -50,7 +50,8 @@ vir$RNA<-vir$NucAcid=='RNA'
 #fix typos
 allTransmissionVars <- c("Fecal.Oral","Arbovirus","Inhalation.Aerosols","Inhalation.Dust","Sexual","Eating","Oral.Bloodstream","Breastfeeding","Maternal.Fetal","Germ.line","Blood.Products","Contact.Skin.or.Eye")
 transmissionVars<-allTransmissionVars[apply(vir[,allTransmissionVars],2,sum)>10]
-attributeVars <- c("RNA","Spherical","Filamentous","Pleomorphic","Bullet.form","Lipid.Envelope")
+colnames(vir)[colnames(vir)=='Bullet.form']<-'Bullet.Form'
+attributeVars <- c("RNA","Spherical","Filamentous","Pleomorphic","Bullet.Form","Lipid.Envelope")
 vir[,attributeVars][vir[,attributeVars]=='?']<-NA
 vir[,attributeVars]<-as.logical(apply(vir[,attributeVars],2,function(xx)as.logical(trimws(xx))))
 
