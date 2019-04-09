@@ -1,0 +1,245 @@
+Host species,Common Name,Virus family,Virus genus,Virus name,Baltimore classification,Category,NucAcid,Spherical,Filamentous,Pleomorphic,Bullet-form,Lipid Envelope,Fecal.Oral,Arbovirus,Inhalation.Aerosols,Inhalation.Dust,Sexual,Eating,Oral.Bloodstream,Breastfeeding,Maternal.Fetal,Germ.line,Blood.Products,Contact.Skin.or.Eye
+Felis catus,Cat,Astroviridae,Mamastrovirus,Feline astrovirus,IV,,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Felis catus,Cat,Caliciviridae,Vesivirus,Feline Calicivirus,IV,,RNA,1,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,1
+Felis catus,Cat,Coronaviridae,Alphacoronavirus,Feline enteric coronavirus,IV,,RNA,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0
+Felis catus,Cat,Coronaviridae,Alphacoronavirus,Feline infectious peritonitis virus,IV,,RNA,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0
+Felis catus,Cat,Herpesviridae,Varicellovirus,Feline Herpes virus 1,I,,DNA,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+Felis catus,Cat,Herpesviridae,Varicellovirus,Pseudorabies virus/Suid Herpesvirus 1,I,,DNA,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,1
+Felis catus,Cat,Orthomyxoviridae,Alphainfluenzavirus,Influenza virus A,V,,RNA,0,0,0,1,1,0,0,1,0,0,1,0,0,0,0,0,0
+Felis catus,Cat,Papillomaviridae,Lambdapapillomavirus,Feline papillomavirus,I,,DNA,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0
+Felis catus,Cat,Parvoviridae,Protoparvovirus,Feline panleukopenia virus,II,,DNA,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1
+Felis catus,Cat,Poxviridae,Orthopoxvirus,Cowpox,I,,DNA,0,0,0,1,1,0,0,0,0,0,1,0,0,0,0,0,1
+Felis catus,Cat,Retroviridae,Lentivirus,Feline immunodeficiency virus,VI,,RNA,1,0,0,0,1,0,0,0,0,0,0,1,0,1,0,0,0
+Felis catus,Cat,Retroviridae,Gammaretrovirus,Feline leukemia virus,VI,,RNA,1,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1
+Felis catus,Cat,Retroviridae,Felispumavirus,Feline Foamy virus,VI,,RNA,1,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,1
+Felis catus,Cat,Rhabdoviridae,Lyssavirus,Rabies virus,V,,RNA,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+Gallus gallus,Chicken,Anelloviridae,Gyrovirus,Chicken anemia virus,I,,DNA,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0
+Gallus gallus,Chicken,Astroviridae,Avastrovirus,"Avian nephritis virus 1,2",IV,,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0
+Gallus gallus,Chicken,Birnaviridae,Avibirnavirus,Infectious bursal disease virus,III,,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Gallus gallus,Chicken,Coronaviridae,Gammacoronavirus,Avian infectious bronchitis virus,IV,,RNA,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+Gallus gallus,Chicken,Flaviviridae,Flavivirus,St Louis encephalitis virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Gallus gallus,Chicken,Hepeviridae,Orthohepevirus,Orthohepevirus,IV,,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Gallus gallus,Chicken,Herpesviridae,Mardivirus,Marek's disease virus,I,,DNA,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0
+Gallus gallus,Chicken,Orthomyxoviridae,Alphainfluenzavirus,Influenza A virus,V,,RNA,0,0,0,1,1,1,0,1,0,0,0,0,0,0,0,0,1
+Gallus gallus,Chicken,Orthomyxoviridae,Thogotovirus,Batken,V,,RNA,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0
+Gallus gallus,Chicken,Paramyxoviridae,Avulavirus,Newcastle Disease virus,V,,RNA,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1
+Gallus gallus,Chicken,Picornaviridae,Tremovirus,Avian encephalomyelitis virus,IV,,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Gallus gallus,Chicken,Poxviridae,Avipoxvirus,Fowlpox,I,,DNA,0,0,0,1,1,0,1,1,0,0,0,0,0,0,0,1,0
+Gallus gallus,Chicken,Reoviridae,Orthoreovirus,Avian orthoreovirus,III,,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0
+Gallus gallus,Chicken,Retroviridae,Alpharetrovirus,Avian leukosis virus,VI,,RNA,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1
+Gallus gallus,Chicken,Togaviridae,Alphavirus,Eastern equine encephalitis virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Gallus gallus,Chicken,Togaviridae,Alphavirus,Venezuelan equine encephalitis virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Gallus gallus,Chicken,Togaviridae,Alphavirus,Western equine encephalitis virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Bos taurus,Cow,Astroviridae,Mamastrovirus,Bovine astrovirus,IV,,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Bos taurus,Cow,Caliciviridae,Vesivirus,Vesicular exanthema of swine virus,IV,,RNA,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+Bos taurus,Cow,Flaviviridae,Flavivirus,Louping ill virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Bos taurus,Cow,Flaviviridae,Flavivirus,Murray valley encephalitis virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Bos taurus,Cow,Flaviviridae,Flavivirus,Wesselsbron virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Bos taurus,Cow,Flaviviridae,Pestivirus,Bovine viral diarrhea virus,IV,,RNA,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1
+Bos taurus,Cow,Flaviviridae,Flavivirus,Tickborne encephalitis virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Bos taurus,Cow,Hepeviridae,Orthohepevirus,Orthohepevirus,IV,,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Bos taurus,Cow,Herpesviridae,Macavirus,Alcelaphine herpesvirus 1,I,,DNA,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+Bos taurus,Cow,Herpesviridae,Varicellovirus,Bovine herpesvirus 1,I,,DNA,1,0,0,0,1,0,0,1,0,1,0,0,0,1,0,0,0
+Bos taurus,Cow,Herpesviridae,Simplexvirus,Bovine herpesvirus 2,I,,DNA,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+Bos taurus,Cow,Herpesviridae,Varicellovirus,Pseudorabies virus/Suid herpesvirus 1,I,,DNA,1,0,0,0,1,0,0,1,0,1,0,0,0,0,0,0,0
+Bos taurus,Cow,Nairoviridae,Orthonairovirus,Crimean-Congo hemorrhagic fever orthonairovirus,V,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Bos taurus,Cow,Orthomyxoviridae,Thogotovirus,Thogotovirus,V,,RNA,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0
+Bos taurus,Cow,Papillomaviridae,Xipapillomavirus,Xipapillomavirus 1,I,,DNA,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1
+Bos taurus,Cow,Paramyxoviridae,Morbillivirus,Rinderpest morbillivirus,V,,RNA,1,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,1
+Bos taurus,Cow,Paramyxoviridae,Respirovirus,Bovine parainfluenza virus,V,,RNA,1,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0
+Bos taurus,Cow,Pneumoviridae,Orthopneumovirus,Bovine orthopneumovirus,V,,RNA,1,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0
+Bos taurus,Cow,Parvoviridae,Bocaparvovirus,Bovine parvovirus,II,,DNA,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0
+Bos taurus,Cow,Peribunyaviridae,Orthobunyavirus,Cache Valley virus,V,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Bos taurus,Cow,Peribunyaviridae,Orthobunyavirus,Akabane orthobunyavirus,V,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Bos taurus,Cow,Phenuiviridae,Phlebovirus,Rift Valley fever phlebovirus,V,,RNA,1,0,0,0,1,0,1,1,0,0,0,0,0,0,0,0,1
+Bos taurus,Cow,Picornaviridae,Enterovirus,Bovine enteroviruses,IV,,RNA,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0
+Bos taurus,Cow,Picornaviridae,Aphthovirus,Bovine rhinoviruses,IV,,RNA,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+Bos taurus,Cow,Picornaviridae,Aphthovirus,Foot and mouth disease virus,IV,,RNA,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1
+Bos taurus,Cow,Poxviridae,Parapoxvirus,Bovine papular stomatitis virus,I,,DNA,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1
+Bos taurus,Cow,Poxviridae,Capripoxvirus,Lumpy skin disease virus,I,,DNA,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0
+Bos taurus,Cow,Poxviridae,Parapoxvirus,Parapoxvirus,I,,DNA,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0
+Bos taurus,Cow,Poxviridae,Parapoxvirus,Pseudocowpox,I,,DNA,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1
+Bos taurus,Cow,Reoviridae,Orbivirus,Bluetongue virus,III,,RNA,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+Bos taurus,Cow,Reoviridae,Orbivirus,Epizootic hemorrhagic disease viruses,III,,RNA,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+Bos taurus,Cow,Retroviridae,Lentivirus,Bovine immunodeficiency virus,VI,,RNA,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1
+Bos taurus,Cow,Retroviridae,Deltaretrovirus,Bovine leukemia virus,VI,,RNA,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,1
+Bos taurus,Cow,Rhabdoviridae,Vesiculovirus,Vesicular stomatitis virus,V,,RNA,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Bos taurus,Cow,Rhabdoviridae,Lyssavirus,Rabies virus,V,,RNA,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+Bos taurus,Cow,Rhabdoviridae,Ephemerovirus,Bovine ephemeral fever virus,V,,RNA,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Canis lupus familiaris,Dog,Adenoviridae,Mastadenovirus,Canine mastadenovirus A,I,,DNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1
+Canis lupus familiaris,Dog,Adenoviridae,Mastadenovirus,Canine adenovirus 2,I,,DNA,1,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0
+Canis lupus familiaris,Dog,Arenaviridae,Mammarenavirus,Lymphocytic choriomeningitis mammarenavirus,V,,RNA,1,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,1
+Canis lupus familiaris,Dog,Coronaviridae,Alphacoronavirus,Canine enteric coronavirus,IV,,RNA,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0
+Canis lupus familiaris,Dog,Coronaviridae,Alphacoronavirus,Canine respiratory coronavirus,IV,,RNA,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+Canis lupus familiaris,Dog,Flaviviridae,Flavivirus,Tickborne encephalitis virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Canis lupus familiaris,Dog,Herpesviridae,Varicellovirus,Canid alphaherpesvirus 1,I,,DNA,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+Canis lupus familiaris,Dog,Herpesviridae,Varicellovirus,Pseudorabies virus/Suid Herpesvirus 1,I,,DNA,1,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,1
+Canis lupus familiaris,Dog,Nairoviridae,Orthonairovirus,Crimean-Congo hemorrhagic fever orthonairovirus,V,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Canis lupus familiaris,Dog,Orthomyxoviridae,Alphainfluenzavirus,Canine influenza virus A,V,,RNA,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0
+Canis lupus familiaris,Dog,Papillomaviridae,Lambdapapillomavirus,Canine papillomavirus,I,,DNA,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+Canis lupus familiaris,Dog,Paramyxoviridae,Morbillivirus,Canine distemper virus,V,,RNA,1,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0
+Canis lupus familiaris,Dog,Parvoviridae,Bocaparvovirus,Canine minute virus/canine parvovirus 2,II,,DNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Canis lupus familiaris,Dog,Parvoviridae,Protoparvovirus,Canine parvovirus 1,II,,DNA,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0
+Canis lupus familiaris,Dog,Phenuiviridae,Phlebovirus,Rift Valley fever phlebovirus,V,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Canis lupus familiaris,Dog,Rhabdoviridae,Lyssavirus,Rabies virus,IV,,RNA,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+Equus ferus caballus,Horse,Adenoviridae,Mastadenovirus,Equine mastadenovirus A,I,,DNA,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1
+Equus ferus caballus,Horse,Adenoviridae,Mastadenovirus,Equine mastadenovirus B,I,,DNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Equus ferus caballus,Horse,Arteriviridae,Alphaarterivirus,Alphaarterivirus equid,IV,,RNA,1,0,0,0,1,0,0,1,0,1,0,0,0,0,0,0,0
+Equus ferus caballus,Horse,Flaviviridae,Flavivirus,Louping ill virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Equus ferus caballus,Horse,Flaviviridae,Flavivirus,Murray valley encephalitis virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Equus ferus caballus,Horse,Flaviviridae,Flavivirus,West Nile virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Equus ferus caballus,Horse,Flaviviridae,Flavivirus,St Louis encephalitis virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Equus ferus caballus,Horse,Herpesviridae,Varicellovirus,Equine herpesvirus 1,I,,DNA,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+Equus ferus caballus,Horse,Herpesviridae,Varicellovirus,Equine herpesvirus 3,I,,DNA,1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1
+Equus ferus caballus,Horse,Herpesviridae,Varicellovirus,Equine herpesvirus 4,I,,DNA,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+Equus ferus caballus,Horse,Orthomyxoviridae,Alphainfluenzavirus,Influenza A virus,V,,RNA,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,1
+Equus ferus caballus,Horse,Orthomyxoviridae,Thogotovirus,Thogotovirus,V,,RNA,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0
+Equus ferus caballus,Horse,Orthomyxoviridae,Thogotovirus,Dhori,V,,RNA,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0
+Equus ferus caballus,Horse,Paramyxoviridae,Henipavirus,Hendra virus,V,,RNA,1,0,1,1,1,0,0,0,0,0,1,0,0,0,0,0,1
+Equus ferus caballus,Horse,Paramyxoviridae,Henipavirus,Nipah virus,V,,RNA,1,0,1,1,1,0,0,0,0,0,1,0,0,0,0,0,1
+Equus ferus caballus,Horse,Picornaviridae,Aphthovirus,"Equine rhinovirus 1,2",IV,,RNA,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+Equus ferus caballus,Horse,Poxviridae,Orthopoxvirus,Horsepox,I,,DNA,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,1
+Equus ferus caballus,Horse,Reoviridae,Orbivirus,African horse sickness virus,III,,RNA,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+Equus ferus caballus,Horse,Reoviridae,Orbivirus,Bluetongue virus,III,,RNA,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+Equus ferus caballus,Horse,Reoviridae,Orbivirus,Peruvian horse sickness virus,III,,RNA,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+Equus ferus caballus,Horse,Reoviridae,Rotavirus,Rotavirus,III,,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Equus ferus caballus,Horse,Retroviridae,Lentivirus,Equine infectious anemia virus,VI,,RNA,1,0,0,0,1,0,1,0,0,1,0,0,0,0,0,1,0
+Equus ferus caballus,Horse,Rhabdoviridae,Lyssavirus,Rabies virus,V,,RNA,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+Equus ferus caballus,Horse,Rhabdoviridae,Vesiculovirus,Vesicular stomatitis virus,V,,RNA,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Equus ferus caballus,Horse,Togaviridae,Alphavirus,Eastern equine encephalitis virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Equus ferus caballus,Horse,Togaviridae,Alphavirus,Venezuelan equine encephalitis virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Equus ferus caballus,Horse,Togaviridae,Alphavirus,Western equine encephalitis virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Adenoviridae,Mastadenovirus,Human mastadenovirus A,I,,DNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Adenoviridae,Mastadenovirus,Human mastadenovirus B,I,,DNA,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1
+Homo sapiens,Human,Adenoviridae,Mastadenovirus,Human mastadenovirus C,I,,DNA,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Adenoviridae,Mastadenovirus,Human mastadenovirus D,I,,DNA,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+Homo sapiens,Human,Adenoviridae,Mastadenovirus,Human mastadenovirus E,I,,DNA,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Adenoviridae,Mastadenovirus,Human mastadenovirus F,I,,DNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Arenaviridae,Mammarenavirus,Lassa mammarenavirus,V,A,RNA,1,0,1,1,1,0,0,1,1,0,1,0,0,0,0,1,0
+Homo sapiens,Human,Arenaviridae,Mammarenavirus,Argentinian mammarenavirus,V,A,RNA,1,0,1,1,1,0,0,0,1,0,1,0,0,0,0,1,0
+Homo sapiens,Human,Arenaviridae,Mammarenavirus,Machupo mammarenavirus,V,A,RNA,1,0,1,1,1,0,0,0,1,0,1,0,0,0,0,1,0
+Homo sapiens,Human,Arenaviridae,Mammarenavirus,Guanarito mammarenavirus,V,A,RNA,1,0,1,1,1,0,0,0,1,0,1,0,0,0,0,1,0
+Homo sapiens,Human,Arenaviridae,Mammarenavirus,Chapare mammarenavirus,V,A,RNA,1,0,1,1,1,0,0,0,1,0,1,0,0,0,0,1,0
+Homo sapiens,Human,Arenaviridae,Mammarenavirus,Lujo mammarenavirus,V,A,RNA,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1
+Homo sapiens,Human,Arenaviridae,Mammarenavirus,Lymphocytic choriomeningitis mammarenavirus,V,,RNA,1,0,1,1,1,0,0,0,1,0,1,0,0,0,0,1,1
+Homo sapiens,Human,Astroviridae,Mamastrovirus,Human astrovirus 1-8,IV,,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Caliciviridae,Norovirus,Norwalk virus,IV,B,RNA,1,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,0
+Homo sapiens,Human,Caliciviridae,Sapovirus,Sapporo virus,IV,B,RNA,1,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,0
+Homo sapiens,Human,Coronaviridae,Betacoronavirus,SARS,IV,C,RNA,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Coronaviridae,Betacoronavirus,MERS,IV,C,RNA,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Coronaviridae,Alphacoronavirus,human cold  coronavirus,IV,,RNA,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Filoviridae,Ebolavirus,Ebola,V,A,RNA,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,1,1
+Homo sapiens,Human,Filoviridae,Marburgvirus,Marburg,V,A,RNA,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,1
+Homo sapiens,Human,Flaviviridae,Flavivirus,Dengue virus,IV,A,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Flaviviridae,Flavivirus,Japanese encephalitis virus,IV,B,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Flaviviridae,Flavivirus,Louping ill virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Flaviviridae,Flavivirus,Murray valley encephalitis virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Flaviviridae,Flavivirus,Saint Louis encephalitis virus,IV,B,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Flaviviridae,Flavivirus,Wesselsbron virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Flaviviridae,Flavivirus,West Nile virus,IV,B,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,1,0
+Homo sapiens,Human,Flaviviridae,Flavivirus,Yellow fever virus,IV,B,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Flaviviridae,Flavivirus,Zika virus,IV,B,RNA,1,0,0,0,1,0,1,0,0,1,0,0,0,1,0,1,0
+Homo sapiens,Human,Flaviviridae,Flavivirus,Omsk hemorrhagic fever virus virus,IV,C,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Flaviviridae,Flavivirus,Alkhurma virus,IV,C,RNA,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,1,0
+Homo sapiens,Human,Flaviviridae,Flavivirus,Kyasanur Forest virus,IV,C,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Flaviviridae,Flavivirus,Tickborne encephalitis virus,IV,C,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Flaviviridae,Hepacivirus,Hepatitis C virus,IV,additional emerging virus,RNA,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0
+Homo sapiens,Human,Flaviviridae,Pegivirus,Hepatitis G virus,IV,,RNA,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,1,0
+Homo sapiens,Human,Hantaviridae,Orthohantavirus,Sin Nombre orthohantavirus,V,A,RNA,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Hepadnaviridae,Orthohepadnavirus,Hepatitis B virus,VII,,DNA,1,0,1,1,1,0,0,0,0,1,0,0,0,1,0,1,1
+Homo sapiens,Human,Hepeviridae,Orthohepevirus,Orthohepevirus A,IV,additional emerging virus,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Herpesviridae,Simplexvirus,Herpes simplex virus 1,I,,DNA,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1
+Homo sapiens,Human,Herpesviridae,Simplexvirus,Herpes simplex virus 2,I,,DNA,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1
+Homo sapiens,Human,Herpesviridae,Varicellovirus,Human herpes virus 3/varicela-zoster virus,I,,DNA,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Herpesviridae,Lymphocryptovirus,Human herpes virus 4/Epstein bar virus,I,,DNA,1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1
+Homo sapiens,Human,Herpesviridae,Cytomegalovirus,Human herpes virus 5/cytomegalovirus,I,,DNA,1,0,0,0,1,0,0,0,0,1,0,0,1,0,0,1,1
+Homo sapiens,Human,Herpesviridae,Roseolovirus,HHV6,I,additional emerging virus,DNA,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1
+Homo sapiens,Human,Herpesviridae,Roseolovirus,HHV7,I,,DNA,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+Homo sapiens,Human,Herpesviridae,Rhadinovirus,HHV8,I,additional emerging virus,DNA,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1
+Homo sapiens,Human,Nairoviridae,Orthonairovirus,Crimean-Congo hemorrhagic fever orthonairovirus,V,A,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,1
+Homo sapiens,Human,Nairoviridae,Orthonairovirus,Nairobi sheep disease orthonairovirus,V,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Orthomyxoviridae,Alphainfluenzavirus,Influenza A virus,V,C,RNA,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,1
+Homo sapiens,Human,Orthomyxoviridae,Betainfluenzavirus,Influenza B virus,V,,RNA,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,1
+Homo sapiens,Human,Orthomyxoviridae,Gammainfluenzavirus,Influenza C virus,V,,RNA,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,1
+Homo sapiens,Human,Orthomyxoviridae,Thogotovirus,Thogotovirus,V,,RNA,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Orthomyxoviridae,Thogotovirus,Dhori,V,,RNA,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Papillomaviridae,Alphapapillomavirus,HPV16,I,,DNA,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
+Homo sapiens,Human,Papillomaviridae,Alphapapillomavirus,HPV18,I,,DNA,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
+Homo sapiens,Human,Paramyxoviridae,Rubulavirus,Mumps virus,V,,RNA,1,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,1
+Homo sapiens,Human,Paramyxoviridae,Henipavirus,Nipah virus,V,C,RNA,1,0,1,1,1,0,0,1,0,0,1,0,0,0,0,0,1
+Homo sapiens,Human,Paramyxoviridae,Henipavirus,Hendra virus,V,C,RNA,1,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,1
+Homo sapiens,Human,Paramyxoviridae,Respirovirus,parainfluenza virus,V,,RNA,1,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,1
+Homo sapiens,Human,Paramyxoviridae,Morbillivirus,measles virus,V,additional emerging virus,RNA,1,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,1
+Homo sapiens,Human,Paramyxoviridae,Avulavirus,Newcastle diseaes virus,V,,RNA,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1
+Homo sapiens,Human,Pneumoviridae,Orthopneumovirus,Respiratory syncytial virus,V,,RNA,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1
+Homo sapiens,Human,Parvoviridae,Bocaparvovirus,Bocavirus,II,,DNA,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Parvoviridae,Erythroparvovirus,B19,II,,DNA,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0
+Homo sapiens,Human,Peribunyaviridae,Orthobunyavirus,La Crosse,V,B,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Phenuiviridae,Phlebovirus,Severe Fever with Thrombocytopenia Syndrome virus,V,C,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,1,0
+Homo sapiens,Human,Phenuiviridae,Phlebovirus,Heartland virus,V,C,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Peribunyaviridae,Orthobunyavirus,Cache Valley virus,V,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Peribunyaviridae,Orthobunyavirus,Jamestown Canyon virus,V,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Peribunyaviridae,Orthobunyavirus,California encephalitis orthobunyavirus,V,B,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Phenuiviridae,Phlebovirus,Rift Valley fever phlebovirus,V,A,RNA,1,0,0,0,1,0,1,1,0,0,1,0,0,0,0,0,1
+Homo sapiens,Human,Picornaviridae,Enterovirus,Poliovirus/Enterovirus C,IV,additional emerging virus,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Picornaviridae,Enterovirus,Rhinovirus A,IV,,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Picornaviridae,Enterovirus,Enterovirus 68,IV,additional emerging virus,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Picornaviridae,Enterovirus,Enterovirus 71,IV,additional emerging virus,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Picornaviridae,Hepatovirus,Hepatitis A virus,IV,B,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0
+Homo sapiens,Human,Picornaviridae,Aphthovirus,Foot and mouth disease virus,IV,,RNA,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+Homo sapiens,Human,Polyomaviridae,Alphapolyomavirus,Human polyomavirus 2,I,additional emerging virus,DNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1
+Homo sapiens,Human,Polyomaviridae,Betapolyomavirus,Human polyomavirus 5,I,,DNA,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Poxviridae,Orthopoxvirus,Smallpox virus,I,A,DNA,0,0,0,1,1,0,0,1,0,0,0,0,0,1,0,0,1
+Homo sapiens,Human,Poxviridae,Molluscipoxvirus,Molluscum contagiosum,I,,DNA,0,0,0,1,1,0,0,0,0,1,0,0,0,0,0,0,1
+Homo sapiens,Human,Poxviridae,Orthopoxvirus,Cowpox,I,,DNA,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1
+Homo sapiens,Human,Poxviridae,Parapoxvirus,Pseudocowpox,I,,DNA,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1
+Homo sapiens,Human,Poxviridae,Orthopoxvirus,Vaccinia,I,,DNA,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1
+Homo sapiens,Human,Poxviridae,Orthopoxvirus,Monkeypox virus,I,,DNA,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,1
+Homo sapiens,Human,Poxviridae,Parapoxvirus,Orf virus,I,,DNA,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1
+Homo sapiens,Human,Reoviridae,Coltivirus,Colorado tick fever virus,III,,RNA,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Reoviridae,Rotavirus,Rotavirus A,III,,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Reoviridae,Rotavirus,Rotavirus B,III,,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Reoviridae,Rotavirus,Rotavirus C,III,,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Retroviridae,Lentivirus,HIV,VI,,RNA,1,0,0,0,1,0,0,0,0,1,0,0,1,1,0,1,0
+Homo sapiens,Human,Retroviridae,Deltaretrovirus,HTLV,VI,,RNA,1,0,0,0,1,0,0,0,0,1,0,0,1,0,0,1,0
+Homo sapiens,Human,Retroviridae,Simiispumavirus,Rhesus macaque simian foamy virus,VI,,RNA,1,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,1
+Homo sapiens,Human,Rhabdoviridae,Lyssavirus,Australian bat lyssavirus,V,additional emerging virus,RNA,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+Homo sapiens,Human,Rhabdoviridae,Lyssavirus,Rabies virus,V,C,RNA,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,1,0
+Homo sapiens,Human,Rhabdoviridae,Vesiculovirus,Vesicular stomatitis virus,V,,RNA,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Togaviridae,Alphavirus,Eastern equine encephalitis virus,IV,B,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Togaviridae,Alphavirus,Chikungunya virus,IV,B,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Togaviridae,Rubivirus,Rubella virus,IV,,RNA,1,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0
+Homo sapiens,Human,Togaviridae,Alphavirus,Venezuelan equine encephalitis virus,IV,B,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Homo sapiens,Human,Togaviridae,Alphavirus,Western equine encephalitis virus,IV,B,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Sus scrofa,Pig,Adenoviridae,Mastadenovirus,Porcine mastadenovirus A,I,,DNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Sus scrofa,Pig,Adenoviridae,Mastadenovirus,Porcine mastadenovirus B,I,,DNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Sus scrofa,Pig,Adenoviridae,Mastadenovirus,Porcine mastadenovirus C,I,,DNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Sus scrofa,Pig,Arenaviridae,Mammarenavirus,Lymphocytic choriomeningitis mammarenavirus,V,,RNA,1,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,1
+Sus scrofa,Pig,Arteriviridae,Betaarterivirus,Betaarterivirus suid 1,IV,,RNA,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+Sus scrofa,Pig,Asfarviridae,Asfivirus,African swine fever virus,I,,DNA,1,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0
+Sus scrofa,Pig,Astroviridae,Mamastrovirus,Porcine astrovirus,IV,,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Sus scrofa,Pig,Caliciviridae,Vesivirus,Vesicular exanthema of swine virus,IV,,RNA,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+Sus scrofa,Pig,Hepeviridae,Orthohepevirus,Orthohepevirus A,IV,,RNA,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Sus scrofa,Pig,Caliciviridae,Vesivirus,Porcine enteric calicivirus,IV,,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Sus scrofa,Pig,Circoviridae,Circovirus,Porcine circovirus,II,,DNA,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+Sus scrofa,Pig,Coronaviridae,Alphacoronavirus,Porcine epidemic diarrhea virus,IV,,RNA,1,0,0,0,1,1,0,0,0,0,1,0,0,0,0,0,0
+Sus scrofa,Pig,Coronaviridae,Deltacoronavirus,Porcine deltacoronavirus,IV,,RNA,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0
+Sus scrofa,Pig,Flaviviridae,Flavivirus,Japanese encephalitis virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Sus scrofa,Pig,Flaviviridae,Flavivirus,Louping ill virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Sus scrofa,Pig,Flaviviridae,Pestivirus,Classical swine fever virus (hog cholera),IV,,RNA,1,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,1
+Sus scrofa,Pig,Hepeviridae,Orthohepevirus,Orthohepevirus,IV,,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Sus scrofa,Pig,Herpesviridae,Varicellovirus,Pseudorabies virus/Suid herpesvirus 1,I,,DNA,1,0,0,0,1,0,0,1,0,1,0,0,0,0,0,0,0
+Sus scrofa,Pig,Orthomyxoviridae,Alphainfluenzavirus,Swine influenza A,V,,RNA,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0
+Sus scrofa,Pig,Orthomyxoviridae,Gammainfluenzavirus,Influenza C virus,V,,RNA,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0
+Sus scrofa,Pig,Paramyxoviridae,Morbillivirus,Rinderpest,V,,RNA,1,0,1,1,1,0,0,1,0,0,1,0,0,0,0,0,0
+Sus scrofa,Pig,Parvoviridae,Protoparvovirus,Porcine parvovirus,II,,DNA,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1
+Sus scrofa,Pig,Picornaviridae,Cardiovirus,Encephalomyocarditis virus,IV,,RNA,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+Sus scrofa,Pig,Picornaviridae,Aphthovirus,Foot and mouth disease virus,IV,,RNA,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1
+Sus scrofa,Pig,Picornaviridae,Enterovirus,Porcine enterovirus,IV,,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Sus scrofa,Pig,Picornaviridae,Enterovirus,Swine vesicular disease virus,IV,,RNA,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0
+Sus scrofa,Pig,Poxviridae,Suipoxvirus,Swinepox,I,,DNA,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0
+Sus scrofa,Pig,Reoviridae,Rotavirus,Rotavirus,III,,RNA,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Sus scrofa,Pig,Retroviridae,Gammaretrovirus,Porcine endogenous retrovirus,VI,,RNA,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0
+Sus scrofa,Pig,Rhabdoviridae,Vesiculovirus,Vesicular stomatitis virus,V,,RNA,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+Sus scrofa,Pig,Rhabdoviridae,Lyssavirus,Rabies virus,V,,RNA,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+Sus scrofa,Pig,Togaviridae,Alphavirus,Eastern equine encephalitis virus,IV,,RNA,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
