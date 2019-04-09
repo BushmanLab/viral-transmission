@@ -46,7 +46,7 @@ library(phytools)
 # Replace with local project directory
 ####
 
-rawData <- read.table(file="viralTransmissionData.tsv",header = TRUE,as.is = TRUE,fill = TRUE, sep = "\t", quote = "") %>%
+rawData <- read.csv(file="Viral Transmission MetadataTblS1.csv",as.is = TRUE) %>%
   arrange(Common.Name)
 
 data <- rawData %>% filter(unclear_transmission==FALSE) %>%
