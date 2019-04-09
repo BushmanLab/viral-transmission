@@ -50,7 +50,7 @@ vir$RNA<-vir$NucAcid=='RNA'
 allTransmissionVars <- c("Fecal.Oral","Arbovirus","Inhalation.Aerosols","Inhalation.Dust","Sexual","Eating","Oral.Bloodstream","Breastfeeding","Maternal.Fetal","Germ.line","Blood.Products","Contact.Skin.or.Eye")
 transmissionVars<-allTransmissionVars[apply(vir[,allTransmissionVars],2,sum)>10]
 attributeVars <- c("RNA","Spherical","Filamentous","Pleomorphic","Bullet.form","Lipid.Envelope")
-vir[,attributeVars]<-apply(vir[,attributeVars],2,function(xx)as.logical(xx))
+vir[,c(attributeVars,transmissionVars)]<-apply(vir[,c(attributeVars,transmissionVars)],2,function(xx)as.logical(xx))
 
 tree<-read.csv('ICTV Master Species List 2018a v1 - ICTV 2018 Master Species #33.csv',stringsAsFactors=FALSE)
 taxa<-unique(tree[tree$Genus %in% vir$Virus.genus&tree$Genus!='',c('Phylum','Subphylum','Class','Order','Family','Genus')])
