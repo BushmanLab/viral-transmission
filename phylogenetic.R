@@ -45,15 +45,12 @@ convertLineToUser<-function(line,axis=1){
   return(out)
 }
 
-vir<-read.table('viralTransmissionData.tsv',stringsAsFactors=FALSE,header=TRUE,sep='\t',quote='')
+vir<-read.csv('Viral Transmission MetadataTblS1.csv',stringsAsFactors=FALSE)
 vir$RNA<-vir$NucAcid=='RNA'
-#fix typos
 allTransmissionVars <- c("Fecal.Oral","Arbovirus","Inhalation.Aerosols","Inhalation.Dust","Sexual","Eating","Oral.Bloodstream","Breastfeeding","Maternal.Fetal","Germ.line","Blood.Products","Contact.Skin.or.Eye")
 transmissionVars<-allTransmissionVars[apply(vir[,allTransmissionVars],2,sum)>10]
-colnames(vir)[colnames(vir)=='Bullet.form']<-'Bullet.Form'
-attributeVars <- c("RNA","Spherical","Filamentous","Pleomorphic","Bullet.Form","Lipid.Envelope")
-vir[,attributeVars][vir[,attributeVars]=='?']<-NA
-vir[,attributeVars]<-as.logical(apply(vir[,attributeVars],2,function(xx)as.logical(trimws(xx))))
+attributeVars <- c("RNA","Spherical","Filamentous","Pleomorphic","Bullet.form","Lipid.Envelope")
+vir[,attributeVars]<-apply(vir[,attributeVars],2,function(xx)as.logical(xx))
 
 tree<-read.csv('ICTV Master Species List 2018a v1 - ICTV 2018 Master Species #33.csv',stringsAsFactors=FALSE)
 taxa<-unique(tree[tree$Genus %in% vir$Virus.genus&tree$Genus!='',c('Phylum','Subphylum','Class','Order','Family','Genus')])
@@ -70,7 +67,7 @@ taxaTree<-ape::nj(as.dist(taxaDist))
 glmFits<-lapply(1:length(transmissionVars),function(ii){
   goodAtt<-sapply(attributeVars,function(xx)min(table(noNa[,xx],noNa[,transmissionVars[ii]])))>0
   if(sum(goodAtt)==0)return(NULL)
-  phylolm::phyloglm(as.formula(sprintf('%s~%s',transmissionVars[ii],paste(attributeVars[goodAtt],collapse='+'))),noNa,taxaTree,btol=100)
+  phylolm::phyloglm(as.formula(sprintf('%s~%s',transmissionVars[ii],paste(attributeVars[goodAtt],collapse='+'))),noNa,taxaTree)
 })
 names(glmFits)<-transmissionVars
 glmBounds<-t(do.call(rbind,lapply(glmFits,function(xx){
@@ -108,12 +105,12 @@ plotHeats<-function(glmBounds,pagelP){
   slantAxis(1,1:nrow(glmBounds),gsub('\\.',' ',rownames(glmBounds)),xpd=NA)
   box()
   insetScale(breaks,cols,insetPos=c(0.1,grconvertX(.02,'ndc','nfc'),.13,.03),at=-2:2,labels=2^(-2:2),main='Fold change in odds')
-  cols<-structure(c(heat.colors(3),'white'),.Names=c('<.01','<.05','<.1','>.1'))
-  image(1:nrow(pagelP),1:ncol(pagelP),pagelP,breaks=c(-.01,0.01,.05,.1,1.01),col=cols,xaxt='n',yaxt='n',xlab='',ylab='')
+  cols<-structure(c(heat.colors(3),'white'),.Names=c('<.01','<.1','<.2','>.2'))
+  image(1:nrow(pagelP),1:ncol(pagelP),pagelP,breaks=c(-.01,0.01,.1,.2,1.01),col=cols,xaxt='n',yaxt='n',xlab='',ylab='')
   abline(v=1:nrow(pagelP)+.5,h=1:ncol(pagelP)-.5,col='#00000033')
   slantAxis(1,1:nrow(pagelP),gsub('\\.',' ',rownames(pagelP)),xpd=NA)
   box()
-  legend(grconvertX(0.01,'ndc','user'),grconvertY(-0.01,'ndc','user'),names(cols),fill=cols,xpd=NA,yjust=0,title='p-value',ncol=4,bty='n',x.intersp=.1,y.intersp=.8)
+  legend(grconvertX(0.01,'ndc','user'),grconvertY(-0.01,'ndc','user'),names(cols),fill=cols,xpd=NA,yjust=0,title='FDR adjusted p-value',ncol=4,bty='n',x.intersp=.1,y.intersp=.8)
 }
 
 pdf('figure/heat.pdf',height=4,width=8)
