@@ -1,0 +1,107 @@
+---
+header-includes:
+- \usepackage{pdflscape}
+- \usepackage{colortbl}
+- \usepackage{texshade}
+- \newcommand{\blandscape}{\begin{landscape}}
+- \newcommand{\elandscape}{\end{landscape}}
+output: 
+  pdf_document: 
+    keep_tex: yes
+    df_print: kable
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warnings = FALSE, message = FALSE, warning = FALSE)
+options(knitr.table.format = "latex") 
+library(ggplot2)
+library(knitr)
+library(dplyr)
+library(tidyr)
+
+####
+# Replace with local project directory
+####
+projectDir <- "/home/kevin/projects/viralTransmission/"
+
+rawData <- read.table(file=paste0(projectDir, "viralTransmissionData.tsv"),header = TRUE,as.is = TRUE,fill = TRUE, sep = "\t", quote = "") %>%
+  arrange(Common.Name)
+
+data <- rawData %>% filter(unclear_transmission==FALSE) %>%
+  mutate(Lipid.Envelope=as.logical(Lipid.Envelope),
+         Spherical=as.logical(Spherical))
+
+transmissionVars <- c("Fecal.Oral","Arbovirus","Inhalation.Aerosols","Inhalation.Dust","Sexual","Eating","Oral.Bloodstream","Breastfeeding","Maternal.Fetal","Germ.line","Blood.Products","Contact.Skin.or.Eye")
+transmissionCols <- which(colnames(data) %in% transmissionVars)
+
+attributeVars <- c("NucAcid","Spherical","Filamentous","Pleomorphic","Bullet.form","Lipid.Envelope")
+attributeCols <- which(colnames(data) %in% attributeVars)
+
+```
+
+
+```{r humanHeatmap, echo=FALSE, eval=TRUE, results='asis', fig.height=9}
+
+VariableLevels <- c(attributeVars, transmissionVars, "Baltimore.classification")
+VariableCols <- which(colnames(data) %in% VariableLevels)
+
+createHostHeatmap <- function(host, varLevels, varCols, data) {
+  plotData <- data %>%
+    filter(Common.Name==host) %>%
+    select(Virus.name, Virus.family, Virus.genus, varCols) %>%
+    gather("Variable","Value", varLevels) %>%
+    mutate(subject=case_when(
+             Variable=="Lipid.Envelope" ~ "Lipid",
+             Variable %in% c("Spherical","Bullet.form","Filamentous", "Pleomorphic") ~ "Capsid Structure",
+             Variable %in% c("Baltimore.classification","Category") ~ "other",
+             Variable=="NucAcid" ~ "NucAcid",
+             TRUE ~ "Transmission mode"),
+           color=case_when(
+             subject=="Lipid" & Value==TRUE ~ "blue",
+             #subject=="Lipid" & Value==FALSE ~ "purple",
+             subject=="Capsid Structure" & Value==TRUE ~ "blue",
+             subject=="Transmission mode" & Value==TRUE ~ "green",
+             Value=="DNA"~"cyan",
+             Value=="RNA"~"yellow",
+             subject=="other"~"white",
+             TRUE ~ "black"),
+           labelText=ifelse(subject %in% c("other","NucAcid"),Value,"")) %>%
+    mutate(species=factor(Virus.name, levels = sort(unique(data$Virus.name), decreasing = TRUE))) %>%
+    mutate(subject=factor(subject, levels = c("other","NucAcid","Capsid Structure","Lipid","Transmission mode"))) %>%
+    mutate(Variable=factor(Variable, levels = varLevels))
+  
+  plotFamilyOrder <- plotData %>% filter(Variable=="Baltimore.classification") %>% arrange(Value, Virus.family) %>% pull(Virus.family) %>% unique()
+  
+  plotData %>%
+    mutate(Virus.family=factor(Virus.family, levels=plotFamilyOrder)) %>%
+    ggplot(aes(x=Variable,y=species, fill=color)) +
+    geom_tile(aes(width=1),color="black") +
+    geom_text(aes(label = labelText), size = 1.5) +
+    scale_fill_manual(values = c("red"="red", "blue"="blue","green"="green","light grey"="light grey","white"="white","cyan"="cyan","yellow"="yellow", "black"="black", "purple"="purple")) +
+    xlab("") + ylab("") +
+    facet_grid(Virus.family ~ subject, scales = "free", space = "free", switch="y") +
+    theme(axis.text.y = element_blank(),
+          axis.ticks.y = element_blank(),
+          axis.text.x = element_text(size=6, angle=45, vjust = 1, hjust = 1),
+          strip.text.y = element_text(angle=180, size=5, margin = margin(0,0,0,0, "cm"), face="italic"),
+          strip.placement = "outside",
+          strip.text.x = element_blank(),
+          panel.spacing.y = unit(0.15, "lines"),
+          panel.spacing.x = unit(-0.3, "lines"),
+          panel.background = element_blank(),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          legend.position = "none") +
+    ggtitle(paste0("Metadata used for host species ",host))
+ 
+}
+
+createHostHeatmap("Human", VariableLevels, VariableCols, data)
+createHostHeatmap("Cat", VariableLevels, VariableCols, data)
+createHostHeatmap("Chicken", VariableLevels, VariableCols, data)
+createHostHeatmap("Cow", VariableLevels, VariableCols, data)
+createHostHeatmap("Dog", VariableLevels, VariableCols, data)
+createHostHeatmap("Horse", VariableLevels, VariableCols, data)
+createHostHeatmap("Pig", VariableLevels, VariableCols, data)
+
+```
