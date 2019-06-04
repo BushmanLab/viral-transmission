@@ -43,11 +43,7 @@ library(phylolm)
 library(parallel)
 library(phytools)
 
-####
-# Replace with local project directory
-####
-
-transmissionVars <- c("Fecal.Oral","Arbovirus","Inhalation.Aerosols","Inhalation.Dust","Sexual","Eating","Oral.Bloodstream","Breastfeeding","Maternal.Fetal","Germ.line","Blood.Products","Contact.Skin.or.Eye")
+transmissionVars <- c("Fecal.Oral","Arbovirus","Inhalation.Aerosols","Inhalation.Dust","Sexual","Eating","Oral.Bloodstream","Breastfeeding","Congenital.vertical","Germ.line","Blood.Products","Contact.Skin.or.Eye")
 attributeVars <- c("NucAcid","Spherical","Filamentous","Pleomorphic","Bullet.form","Lipid.Envelope")
 
 data <- read.csv("ViralTransmissionMetadataTableS1.csv",header = TRUE,stringsAsFactors=FALSE) %>% arrange(Common.Name)

@@ -45,9 +45,9 @@ convertLineToUser<-function(line,axis=1){
   return(out)
 }
 
-vir<-read.csv('ViralTransmissionMetadataTableS1.csv',stringsAsFactors=FALSE)
+vir<-read.csv('ViralTransmissionMetadataTableS1.csv',stringsAsFactors=FALSE,row.names=NULL,sep=',')
 vir$RNA<-vir$NucAcid=='RNA'
-allTransmissionVars <- c("Fecal.Oral","Arbovirus","Inhalation.Aerosols","Inhalation.Dust","Sexual","Eating","Oral.Bloodstream","Breastfeeding","Maternal.Fetal","Germ.line","Blood.Products","Contact.Skin.or.Eye")
+allTransmissionVars <- c("Fecal.Oral","Arbovirus","Inhalation.Aerosols","Inhalation.Dust","Sexual","Eating","Oral.Bloodstream","Breastfeeding","Congenital.vertical","Germ.line","Blood.Products","Contact.Skin.or.Eye")
 transmissionVars<-allTransmissionVars[apply(vir[,allTransmissionVars],2,sum)>10]
 attributeVars <- c("RNA","Spherical","Filamentous","Pleomorphic","Bullet.form","Lipid.Envelope")
 vir[,c(attributeVars,transmissionVars)]<-apply(vir[,c(attributeVars,transmissionVars)],2,function(xx)as.logical(xx))
@@ -104,7 +104,7 @@ plotHeats<-function(glmBounds,pagelP){
   axis(2,1:ncol(glmBounds),gsub('\\.',' ',colnames(glmBounds)),las=1)
   slantAxis(1,1:nrow(glmBounds),gsub('\\.',' ',rownames(glmBounds)),xpd=NA)
   box()
-  insetScale(breaks,cols,insetPos=c(0.1,grconvertX(.02,'ndc','nfc'),.13,.03),at=-2:2,labels=2^(-2:2),main='Fold change in odds')
+  insetScale(breaks,cols,insetPos=c(0.1,grconvertX(.02,'ndc','nfc'),.13,.03),at=-1:1,labels=2^(-1:1),main='Fold change in odds')
   cols<-structure(c(heat.colors(3),'white'),.Names=c('<.01','<.1','<.2','>.2'))
   image(1:nrow(pagelP),1:ncol(pagelP),pagelP,breaks=c(-.01,0.01,.1,.2,1.01),col=cols,xaxt='n',yaxt='n',xlab='',ylab='')
   abline(v=1:nrow(pagelP)+.5,h=1:ncol(pagelP)-.5,col='#00000033')
