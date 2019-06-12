@@ -11,4 +11,4 @@ figure/heat.png: figure phylogenetic.R
 .PHONY: clean
 
 clean: 
-	rm figure/heat.png README.md
+	rm -f figure/heat.png README.md
