@@ -46,7 +46,7 @@ library(phytools)
 transmissionVars <- c("Fecal.Oral","Arbovirus","Inhalation.Aerosols","Inhalation.Dust","Sexual","Eating","Oral.Bloodstream","Breastfeeding","Congenital.vertical","Germ.line","Blood.Products","Contact.Skin.or.Eye")
 attributeVars <- c("NucAcid","Spherical","Filamentous","Pleomorphic","Bullet.form","Lipid.Envelope")
 
-data <- read.csv("ViralTransmissionMetadataTableS1.csv",header = TRUE,stringsAsFactors=FALSE) %>% arrange(Common.Name)
+data <- read.csv("SupplementaryTable1.csv",header = TRUE,stringsAsFactors=FALSE) %>% arrange(Common.Name)
 
 data[,c(attributeVars,transmissionVars)]<-lapply(data[,c(attributeVars,transmissionVars)],function(xx)if(all(xx %in% 0:1))as.logical(xx) else xx)
 

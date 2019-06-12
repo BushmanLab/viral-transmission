@@ -45,7 +45,7 @@ convertLineToUser<-function(line,axis=1){
   return(out)
 }
 
-vir<-read.csv('ViralTransmissionMetadataTableS1.csv',stringsAsFactors=FALSE,row.names=NULL,sep=',')
+vir<-read.csv('SupplementaryTable1.csv',stringsAsFactors=FALSE,row.names=NULL,sep=',')
 vir$RNA<-vir$NucAcid=='RNA'
 allTransmissionVars <- c("Fecal.Oral","Arbovirus","Inhalation.Aerosols","Inhalation.Dust","Sexual","Eating","Oral.Bloodstream","Breastfeeding","Congenital.vertical","Germ.line","Blood.Products","Contact.Skin.or.Eye")
 transmissionVars<-allTransmissionVars[apply(vir[,allTransmissionVars],2,sum)>10]

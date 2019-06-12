@@ -29,11 +29,11 @@ print(sessionInfo())
 ```
 ## R version 3.4.4 (2018-03-15)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 16.04.6 LTS
+## Running under: Ubuntu 18.04.2 LTS
 ## 
 ## Matrix products: default
-## BLAS: /usr/lib/libblas/libblas.so.3.6.0
-## LAPACK: /usr/lib/lapack/liblapack.so.3.6.0
+## BLAS: /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.7.1
+## LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.7.1
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
