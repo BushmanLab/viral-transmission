@@ -1,3 +1,9 @@
+for(xx in c('ape','phylolm','phytools')){
+  if(!suppressWarnings(require(xx,character.only=TRUE,quietly=TRUE))){
+    stop('Package ',xx,' not found. Please install with install.packages("',xx,'")')
+  }
+}
+
 insetScale<-function(breaks,col,insetPos=c(.025,.015,.04,.25),main='',offset=1e-3,at=NULL,labels=NULL,cex=1){
   if(length(breaks)!=length(col)+1)stop('Number of breaks must be one more than colors')
   insetPos<-c(graphics::grconvertY(insetPos[1],'nfc','user'),graphics::grconvertX(insetPos[2],'nfc','user'),graphics::grconvertY(insetPos[3],'nfc','user'),graphics::grconvertX(insetPos[4],'nfc','user'))

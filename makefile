@@ -6,7 +6,7 @@ figure:
 	mkdir figure
 
 figure/heat.png: figure phylogenetic.R
-	R CMD BATCH phylogenetic.R
+	Rscript phylogenetic.R
 
 .PHONY: clean
 
