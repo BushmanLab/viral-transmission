@@ -29,7 +29,7 @@ print(sessionInfo())
 ```
 ## R version 3.4.4 (2018-03-15)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 18.04.2 LTS
+## Running under: Ubuntu 18.04.3 LTS
 ## 
 ## Matrix products: default
 ## BLAS: /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.7.1
@@ -54,7 +54,7 @@ print(sessionInfo())
 ## loaded via a namespace (and not attached):
 ##  [1] Rcpp_1.0.0              pillar_1.3.1           
 ##  [3] compiler_3.4.4          plyr_1.8.4             
-##  [5] tools_3.4.4             digest_0.6.15          
+##  [5] tools_3.4.4             digest_0.6.22          
 ##  [7] evaluate_0.13           tibble_2.0.1           
 ##  [9] gtable_0.2.0            nlme_3.1-137           
 ## [11] lattice_0.20-38         pkgconfig_2.0.2        
