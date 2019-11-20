@@ -1,11 +1,11 @@
-README.md: README.Rmd figure/heat.png
+README.md: README.Rmd figure/heat.png SupplementaryTable1.csv
 	R -e 'knitr::knit("README.Rmd")'
 	sed '/^---$$/,/^---$$/d' README.md --in-place
 
 figure: 
 	mkdir figure
 
-figure/heat.png: figure phylogenetic.R
+figure/heat.png: figure phylogenetic.R SupplementaryTable1.csv
 	Rscript phylogenetic.R
 
 .PHONY: clean
