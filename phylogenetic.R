@@ -3,6 +3,8 @@ for(xx in c('ape','phylolm','phytools')){
     stop('Package ',xx,' not found. Please install with install.packages("',xx,'")')
   }
 }
+#optimization routine of default phyloglm not robust so added additional starting points
+source('phyloglm.R')
 
 insetScale<-function(breaks,col,insetPos=c(.025,.015,.04,.25),main='',offset=1e-3,at=NULL,labels=NULL,cex=1){
   if(length(breaks)!=length(col)+1)stop('Number of breaks must be one more than colors')
@@ -73,7 +75,8 @@ taxaTree<-ape::nj(as.dist(taxaDist))
 glmFits<-lapply(1:length(transmissionVars),function(ii){
   goodAtt<-sapply(attributeVars,function(xx)min(table(noNa[,xx],noNa[,transmissionVars[ii]])))>0
   if(sum(goodAtt)==0)return(NULL)
-  phylolm::phyloglm(as.formula(sprintf('%s~%s',transmissionVars[ii],paste(attributeVars[goodAtt],collapse='+'))),noNa,taxaTree)
+  #turn down mc.cores if not on a large server
+  phyloglm2(as.formula(sprintf('%s~%s',transmissionVars[ii],paste(attributeVars[goodAtt],collapse='+'))),noNa,taxaTree,mc.cores=50)
 })
 names(glmFits)<-transmissionVars
 glmBounds<-t(do.call(rbind,lapply(glmFits,function(xx){
