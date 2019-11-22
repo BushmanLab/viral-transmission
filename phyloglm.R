@@ -1,4 +1,4 @@
-phyloglm <- function(formula, data=list(), phy, method=c("logistic_MPLE","logistic_IG10","poisson_GEE"),
+phyloglm2 <- function(formula, data=list(), phy, method=c("logistic_MPLE","logistic_IG10","poisson_GEE"),
                      btol = 10, log.alpha.bound = 4, start.beta=NULL, start.alpha=NULL, 
                      boot = 0, full.matrix = TRUE,mc.cores=4)
 {
