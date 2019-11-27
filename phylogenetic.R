@@ -75,8 +75,7 @@ taxaTree<-ape::nj(as.dist(taxaDist))
 glmFits<-lapply(1:length(transmissionVars),function(ii){
   goodAtt<-sapply(attributeVars,function(xx)min(table(noNa[,xx],noNa[,transmissionVars[ii]])))>0
   if(sum(goodAtt)==0)return(NULL)
-  #turn down mc.cores if not on a large server
-  phyloglm2(as.formula(sprintf('%s~%s',transmissionVars[ii],paste(attributeVars[goodAtt],collapse='+'))),noNa,taxaTree,mc.cores=50)
+  phyloglm2(as.formula(sprintf('%s~%s',transmissionVars[ii],paste(attributeVars[goodAtt],collapse='+'))),noNa,taxaTree,mc.cores=parallel::detectCores())
 })
 names(glmFits)<-transmissionVars
 glmBounds<-t(do.call(rbind,lapply(glmFits,function(xx){
@@ -94,7 +93,7 @@ pagels<-parallel::mclapply(structure(attributeVars,.Names=attributeVars),functio
   lapply(structure(transmissionVars,.Names=transmissionVars),function(trans){
     phytools::fitPagel(taxaTree,structure(noNa[,att],.Names=rownames(noNa)),structure(noNa[,trans],.Names=rownames(noNa)))
   })
-},mc.cores=length(attributeVars))
+},mc.cores=min(length(attributeVars),parallel::detectCores()))
 pagelP<-do.call(rbind,lapply(pagels,function(xx)sapply(xx,function(yy)yy$P)))
 pagelP[,]<-p.adjust(pagelP,'fdr')
 sigPs<-which(pagelP<.1,arr.ind=TRUE)

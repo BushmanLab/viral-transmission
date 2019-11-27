@@ -387,7 +387,7 @@ phyloglm2 <- function(formula, data=list(), phy, method=c("logistic_MPLE","logis
     }
     if (method == "logistic_MPLE") {
       #opt <- optim(par=c(startB,startlL), fn=npllh, method="L-BFGS-B", control=list(factr=1e12), y=y)
-      opt <- parallel::mclapply(startlL*10^(seq(-2,1,.0005)),function(startlL)optim(par=c(startB,startlL), fn=npllh, method="L-BFGS-B", control=list(factr=1e12), y=y),mc.cores=mc.cores)
+      opt <- parallel::mclapply(startlL*10^(seq(-2,1,.005)),function(startlL)optim(par=c(startB,startlL), fn=npllh, method="L-BFGS-B", control=list(factr=1e12), y=y),mc.cores=mc.cores)
       #tmp<-data.frame('val'=sapply(opt,'[[','value'),'alpha'= round(1/exp(sapply(opt,function(xx)tail(xx$par,1))),3))
       #tmp[tmp[,1]>1e5,1]<-Inf
       opt<-opt[[which.min(sapply(opt,'[[','value'))]]
